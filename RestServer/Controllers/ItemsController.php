@@ -155,19 +155,6 @@ class ItemsController
     }
 }
 
-/*function items_success($browser)
-{
-  global $m_name;
-  $handle = $browser
-    ->WebBrowser('print_monsters_info');
-  $handle
-    ->find('input[id=search_box2]')
-      ->val($m_name)
-      ->parents('form')
-      ->unbind()
-        ->submit();
-}*/
-
 function items_success($browser)
 {
   global $i_name;
@@ -188,9 +175,6 @@ function print_items_info($browser)
         ->attr('bgcolor','White')
         ->attr('align','Left');
 
-
-        print $browser;
-        return;
     $tdarr = array();
     $tdnum = 0;
     foreach(pq($tabs)->find('tr') as $el2)
@@ -199,53 +183,29 @@ function print_items_info($browser)
 	    $tdarr[] = $pq2->find('td')->eq(0);
     }
 
-	global $monsters;
-	$monsters = array();
+	global $items;
+	$items = array();
 
-	for($i=0;$i<count($tdarr);$i++)
+  if ((count($tdarr)/2)==round(count($tdarr)/2))
   {
-		$name = null;
-		$link = null;
-		$image = null;
-		$type = null;
-		$tdaffectedcnt = 0;
+	   for($i=0;$i<count($tdarr);$i=$i+2)
+     {
+         $link_arr = explode('/', $tdarr[$i+1]->find('a')->attr('href'));
+ 			   $link = "item.php?type=".$link_arr[count($link_arr)-1];
+ 			   $image = $tdarr[$i+1]->find("img")->attr('src');
 
-		if($tdarr[$i]->find('font')->attr('color') == "Yellow")
-		{
-			$name = $tdarr[$i]->text();
-			$tdaffectedcnt++;
-		}
+         $link = $tdarr[$i+1]->find("a")->attr("href");
+         $link = str_replace("/database/","item.php?type=", $link);
+         $link = str_replace("/","&item_id=", $link);
 
-		if($i+1 < count($tdarr))
-		{
-			$link_arr = explode('/', $tdarr[$i+1]->find('a')->attr('href'));
-			$link = "monster.php?monster_id=".$link_arr[count($link_arr)-1];
-			$image = $tdarr[$i+1]->find("img")->attr('src');
-			$tdaffectedcnt++;
-		}
+	       $row = array(
+	       "Name" => $tdarr[$i]->text(),
+		     "Link" => $link,
+			   "Image" => $tdarr[$i+1]->find("img")->attr("src"));
 
-		if($i+2 < count($tdarr))
-		{
-			if($tdarr[$i+2]->attr('colspan') != null)
-			{
-				if($tdarr[$i+2]->find('font')->text() != '')
-				{
-					$type = $tdarr[$i+2]->text();
-					$tdaffectedcnt++;
-				}
-			}
-		}
-
-		$i = $i + $tdaffectedcnt;
-
-	  $row = array(
-	     "Name" => $name,
-		   "Link" => $link,
-			 "Image" => $image,
-	     "Type" => $type);
-
-       array_push($monsters, $row);
+         array_push($items, $row);
+     }
   }
 
-  return null;
+  return $items;
 }

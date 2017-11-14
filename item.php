@@ -36,6 +36,8 @@ $response = \Httpful\Request::get($uri)
 <div id="main" class="ui-body-d ui-content">
 <table id='item_info_tab'>
 <tr><td colspan=2><img src="<?php echo $response->body->item_img ?>"></td></tr>
+<tr></tr>
+<tr></tr>
 <?php
 if($response->body->item_type == "wearables")
 {
@@ -58,13 +60,13 @@ if($response->body->item_type == "wearables")
   <tr><td>Sex</td><td><?php echo $response->body->wearable_info->Sex ?></td></tr>
   <tr><td>Base level</td><td><?php echo $response->body->wearable_info->Base_Lvl ?></td></tr>
   <tr><td>Job</td><td><?php echo $response->body->wearable_info->Job ?></td></tr>
-  <tr><td>Weight</td><td><?php echo $response->body->weight ?></td></tr>
-  <tr><td>Buy</td><td><?php echo $response->body->buy ?></td></tr>
-  <tr><td>Sell</td><td><?php echo $response->body->sell ?></td></tr>
-  <tr><td>Compound</td><td><?php echo $response->body->compound ?></td></tr>
-  <tr><td colspan=2><?php echo $response->body->description ?></td></tr>
   <?php
 }?>
+<tr><td>Weight</td><td><?php echo $response->body->weight ?></td></tr>
+<tr><td>Buy</td><td><?php echo $response->body->buy ?></td></tr>
+<tr><td>Sell</td><td><?php echo $response->body->sell ?></td></tr>
+<tr><td>Compound</td><td><?php echo $response->body->compound ?></td></tr>
+<tr><td colspan=2><?php echo $response->body->description ?></td></tr>
 </table>
 </div>
 

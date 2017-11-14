@@ -126,8 +126,7 @@ class MonstersController
                 $link = str_replace("/","&item_id=", $link);
                 $tdarr[$i+1]->find("a")->attr("href", $link);
 		              $row = array(
-		                   "Image" =>  $tdarr[$i]->find("img")->attr('src'),
-                       //$tdarr[1]->html() => $link->html(),
+		                   "Image" =>  $tdarr[$i]->find("img")->attr('src'),                       
 		                   $tdarr[1]->html() => $tdarr[$i+1]->html(),
 		                   $tdarr[2]->html() => $tdarr[$i+2]->text(),
 		                   $tdarr[3]->html() => $tdarr[$i+3]->text(),
@@ -196,18 +195,6 @@ function monsters_success($browser)
       ->unbind()
         ->submit();
 }
-
-/*function items_success($browser)
-{
-  $handle = $browser
-  ->WebBrowser('print_items_info');
-  $handle
-  ->find('input[id=search_box1]')
-      ->val($_POST['item_name'])
-      ->parents('form')
-      ->unbind()
-        ->submit();
-}*/
 
 function print_monsters_info($browser)
 {

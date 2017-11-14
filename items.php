@@ -13,8 +13,8 @@ if(!isset($_GET["item_name"]))
     return;
 }
 
-$uri = "http://motrinfo.000webhostapp.com/RestServer/index.php/searchByItemName/".$_GET["item_name"];
-//$uri = "http://localhost/RestServer/index.php/searchByItemName/".$_GET["item_name"];
+//$uri = "http://motrinfo.000webhostapp.com/RestServer/index.php/searchByItemName/".$_GET["item_name"];
+$uri = "http://localhost/motrinfo/RestServer/index.php/searchByItemName/".$_GET["item_name"];
 $response = \Httpful\Request::get($uri)
  ->expectsJson()
     ->send();
@@ -29,9 +29,8 @@ $response = \Httpful\Request::get($uri)
 <?php
 for($i=0;$i<count($response->body);$i++)
 {?>
-    <li><a href="<?php echo $response->body[$i]->Link;?>"><img src="<?php echo $response->body[$i]->Image;?>">
+    <li style="height:60px"><a href="<?php echo $response->body[$i]->Link;?>"><img src="<?php echo $response->body[$i]->Image;?>">
     <h2><?php echo $response->body[$i]->Name; ?></h2>
-    <p><?php echo $response->body[$i]->Type; ?></p>
     </a></li>
 <?php
 }?>
