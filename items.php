@@ -29,7 +29,7 @@ $response = \Httpful\Request::get($uri)
 <?php
 for($i=0;$i<count($response->body);$i++)
 {?>
-    <li style="height:60px"><a href="<?php echo $response->body[$i]->Link;?>"><img src="<?php echo $response->body[$i]->Image;?>">
+    <li style="height:610px"><a href="<?php echo $response->body[$i]->Link;?>"><img src="<?php echo $response->body[$i]->Image;?>">
     <h2><?php echo $response->body[$i]->Name; ?></h2>
     </a></li>
 <?php
