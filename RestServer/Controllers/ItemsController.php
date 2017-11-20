@@ -80,6 +80,8 @@ class ItemsController
           $res->sell = strval($tdarr[6]->text() / 2);
         $res->buy = $tdarr[6]->text();
         $res->item_img = $tdarr[9]->find("img")->attr('src');
+        $tdarr[10]->find('font[color="#777777"]')->attr('color','#ffffff');
+        $tdarr[10]->find('font[color="#000000"]')->attr('color','#ffffff');
         $res->description = $tdarr[10]->html();
       }
 
@@ -97,6 +99,8 @@ class ItemsController
         else
           $res->buy = $tdarr[25]->text();
         $res->compound = $tdarr[27]->text();
+        $tdarr[30]->find('font[color="#777777"]')->attr('color','#ffffff');
+        $tdarr[30]->find('font[color="#000000"]')->attr('color','#ffffff');
         $res->description = $tdarr[30]->html();
 
 	      $res->wearable_info = array(
@@ -108,8 +112,7 @@ class ItemsController
           "Weapon_Lvl" => $tdarr[15]->text(),
           "Base_Lvl" => $tdarr[17]->text(),
           $tdarr[18]->text() => $tdarr[19]->text(),
-          $tdarr[20]->text() => $tdarr[21]->text(),
-          //$tdarr[26]->text() => $tdarr[27]->text(),
+          $tdarr[20]->text() => $tdarr[21]->text(),          
           "Job" => trim(substr($tdarr[31]->text(),5))
         );
       }
@@ -118,13 +121,18 @@ class ItemsController
       {
         $res->item_img = $tdarr[1]->find("img")->attr('src');
         $res->weight = $tdarr[4]->text();
+        $tdarr[7]->find('font[color="#777777"]')->attr('color','#ffffff');
+        $tdarr[7]->find('font[color="#000000"]')->attr('color','#ffffff');
         $res->description = $tdarr[7]->html();
         $res->sell = "10";
         $res->buy = "";
       }
 
       //--drop item data
-      $pqm=pq($hentry)->eq(1);
+      if($type != "cards")
+        $pqm=pq($hentry)->eq(1);
+      else
+        $pqm=pq($hentry)->eq(2);
       $tdarr=array();
 
       foreach ($pqm->find('td') as $el1)
@@ -142,8 +150,7 @@ class ItemsController
             $mid = substr(strrchr($mid, "/"),1);
             $link = "monster.php?monster_id=" .$mid;
             $tdarr[$i]->find("a")->attr("href",$link);
-            $row = array(
-               //"test"=> $link,
+            $row = array(               
                   "monster_name" => $tdarr[$i]->html(),
                   "chance" => $tdarr[$i+1]->text()
                   );

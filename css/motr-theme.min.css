@@ -30,8 +30,20 @@ button,
 legend,
 .ui-input-text input,
 .ui-input-search input {
-	color: inherit;
-	text-shadow: inherit;
+	color: #ffffff;
+	text-shadow: inherit;	
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #dddddd;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #dddddd;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #dddddd;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #dddddd;
 }
 /* Form labels (overrides font-weight bold in bars, and mini font-size) */
 .ui-mobile label,
