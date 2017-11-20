@@ -13,8 +13,7 @@ if(!isset($_GET["monster_name"]))
     return;
 }
 
-$uri = "http://motrinfo.000webhostapp.com/RestServer/index.php/searchByMonsterName/".$_GET["monster_name"];
-//$uri = "http://localhost/RestServer/index.php/searchByMonsterName/".$_GET["monster_name"];
+$uri = $REST_url ."index.php/searchByMonsterName/".$_GET["monster_name"];
 $response = \Httpful\Request::get($uri)
  ->expectsJson()
     ->send();

@@ -1,0 +1,6 @@
+<?php
+
+#'/' at the end is necessary
+$REST_url = "http://somedomain.com/";
+
+?>

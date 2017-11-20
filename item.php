@@ -13,8 +13,7 @@ if(!isset($_GET["type"]) && !isset($_GET["item_id"]))
     return;
 }
 
-//$uri = "http://motrinfo.000webhostapp.com/RestServer/index.php/getItemInfoById/".$_GET["type"]."/".$_GET["item_id"];
-$uri = "http://localhost/motrinfo/RestServer/index.php/getItemInfoById/".$_GET["type"]."/".$_GET["item_id"];
+$uri = $REST_url ."index.php/getItemInfoById/".$_GET["type"]."/".$_GET["item_id"];
 $response = \Httpful\Request::get($uri)
  ->expectsJson()
     ->send();
