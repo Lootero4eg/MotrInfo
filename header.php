@@ -2,15 +2,43 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
     <title>MOTR Search</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/motr-theme.min.css" />
-        <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<?php
+/*    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />*/
+?>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/motr-theme.min.css" />
+    <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="scripts/fortabs.js"></script>
+    <style>
+
+  </style>
 </head>
 <body>
 <?php
-require('config.php');
+  require('config.php');
 ?>
+
+<div data-role="page">
+  <div data-role="panel" id="menu" data-display="overlay" style="background-color:#2f66a5;text-align:left">
+      <a href="home.php">Home</a><br>
+      <a href="search.php">Search</a><br>
+      <a href="vending.php">Vending</a><br>
+      <a href="#exit">Exit</a>
+  </div><!-- /panel -->
+<?php
+if(!isset($customheader)){
+ ?>
+  <div data-role="header" class="header" data-position="fixed">
+    <h1><?php echo is_null($pagecaption) ? "" : $pagecaption; ?></h1>
+  </div>
+
+  <div id="content" data-role="content">
+<?php } ?>

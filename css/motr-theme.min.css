@@ -31,7 +31,7 @@ legend,
 .ui-input-text input,
 .ui-input-search input {
 	color: #ffffff;
-	text-shadow: inherit;	
+	text-shadow: inherit;
 }
 ::-webkit-input-placeholder { /* WebKit browsers */
     color:    #dddddd;
@@ -217,7 +217,7 @@ html .ui-alt-icon .ui-radio-off:after {
 	width: 8px;
 	height: 8px;
 	border-width: 5px;
-	border-style: solid; 
+	border-style: solid;
 }
 .ui-alt-icon.ui-btn.ui-radio-on:after,
 .ui-alt-icon .ui-btn.ui-radio-on:after {
@@ -234,4 +234,28 @@ p, input{display:inline-block;width:80%}
 img {
 	padding-top:10px;
 	padding-left:10px;
+}
+
+.border-menu {
+  position: relative;
+  padding-left: 1.25em;
+}
+.border-menu:before {
+  content: "";
+  position: absolute;
+  top: 0.25em;
+  left: 0;
+  width: 1em;
+  height: 0.165em;
+  border-top: 0.375em double #000;
+  border-bottom: 0.125em solid #000;
+  border-color: white;
+}
+
+.hamburger_menu_setting{
+	position:absolute;
+	top:7;
+	left:10;
+	z-index: 1000;
+	font-size:20pt;	
 }

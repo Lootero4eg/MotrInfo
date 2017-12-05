@@ -1,6 +1,7 @@
 <?php
 ini_set('display_errors', 'On');
 
+$customheader = true;
 include('header.php');
 
 include('./httpful.phar');
@@ -19,10 +20,11 @@ $response = \Httpful\Request::get($uri)
     ->send();
 ?>
 
-<div data-role="header" class="top_header headerBG" data-position="fixed">
-    <a href="" data-icon="back" onclick="window.history.go(-1);">Back</a>
+<div data-role="header" data-position="fixed">
     <h1><?php echo $response->body->item_name ?></h1>
 </div>
+
+<div id="content" data-role="content">
 
 <div data-role="tabs"  id="tabs" data-position="fixed">
 <div data-role="navbar">

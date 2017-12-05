@@ -1,12 +1,10 @@
 <?php
 ini_set('display_errors', 'On');
 
+$pagecaption = "Database search";
+
 include('header.php');
 ?>
-  <div data-role="header" class="top_header headerBG" data-position="fixed">
-    <h1>Database search</h1>
-  </div>
-
   <form id="f1" method="GET" action="monsters.php">
     <p style="text-aling:center">
       <label for="search">Monster search:</label>
@@ -24,7 +22,6 @@ include('header.php');
       <input value="Find items" type="submit">
     </p>
   </form>
-
   <?php
 include('footer.php');
 ?>

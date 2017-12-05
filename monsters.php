@@ -1,6 +1,8 @@
 <?php
 ini_set('display_errors', 'On');
 
+$pagecaption = "Search by monster name";
+
 include('header.php');
 
 include('./httpful.phar');
@@ -18,11 +20,6 @@ $response = \Httpful\Request::get($uri)
  ->expectsJson()
     ->send();
 ?>
-<div data-role="header" class="top_header headerBG" data-position="fixed">
-    <a href="search.php" data-icon="back">Back</a>
-    <h1>Search by monster name</h1>
-</div>
-
 <ul data-role="listview" data-inset="true">
 <?php
 for($i=0;$i<count($response->body);$i++)
