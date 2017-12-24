@@ -1,0 +1,8 @@
+{
+  "name": "motrinfo_client",
+  "app_id": "9eb09fd7",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
