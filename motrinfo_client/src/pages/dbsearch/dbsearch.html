@@ -60,10 +60,20 @@
             <ion-slide>
                 <ion-list>
                     <ion-item>
-                        <img src="{{ajaxData.monster_img}}">
+                        <img src="{{ajaxData.monster_img}}">                         
                     </ion-item>
                     <ion-item>
-                        {{monster_maindata.Level}}
+                        Level: {{ajaxData?.maindata?.Level}}<br>
+                        Scale: {{ajaxData?.maindata?.Scale}}<br>
+                        Race: {{ajaxData?.maindata?.Race}}<br>
+                        Element: {{ajaxData?.maindata?.Element}}<br>
+                        HP: {{ajaxData?.maindata?.HP}}<br>
+                        ATK: {{ajaxData?.maindata?.ATK}}<br>
+                        DEF: {{ajaxData?.maindata?.DEF}}<br>
+                        MDEF: {{ajaxData?.maindata?.MDEF}}<br>
+                        EXP: {{ajaxData?.maindata?.EXP}}<br>
+                        Job EXP: {{ajaxData?.maindata['Job EXP']}}<br>
+                        Range: {{ajaxData?.maindata?.Range}}<br>
                     </ion-item>
                 </ion-list>
             </ion-slide>
