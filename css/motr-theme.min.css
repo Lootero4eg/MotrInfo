@@ -242,9 +242,10 @@ img {
 }
 .border-menu:before {
   content: "";
-  position: absolute;
+  position: fixed;
   top: 0.25em;
-  left: 0;
+  top: 13;
+  left: 10;
   width: 1em;
   height: 0.165em;
   border-top: 0.375em double #000;
@@ -253,9 +254,30 @@ img {
 }
 
 .hamburger_menu_setting{
-	position:absolute;
-	top:7;
+	position:fixed;
+	top:17;
 	left:10;
 	z-index: 1000;
-	font-size:20pt;	
+	font-size:20pt;
+}
+
+div#menu{
+	background-color:#2f66a5;
+	text-align:left
+}
+
+h1.menu{
+	position:relative;
+	top:-40;
+	text-align:center;
+	margin-bottom:-40px
+}
+
+font.shadowed{
+	text-shadow: 2px 2px 1px black;
+}
+
+div.menu_separator{
+	border-bottom:1px solid white;
+	position:relative;top:20px
 }

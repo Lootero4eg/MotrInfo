@@ -10,6 +10,8 @@ require 'Controllers/ItemsController.php';
 
 #var_dump($_POST);
 
+header('Access-Control-Allow-Origin: *');
+
 $server = new \Jacwright\RestServer\RestServer('debug');
 $server->addClass('MonstersController');
 $server->addClass('ItemsController');

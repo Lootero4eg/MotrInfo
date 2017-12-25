@@ -1,33 +1,63 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
+    <ion-navbar>
+        <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>List</ion-title>
-  </ion-navbar>
+        <ion-title class="centered_text">{{ searchCaption }}</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list no-lines>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-start></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-end>
-        {{item.note}}
-      </div>
-    </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.Name}}</b>
-  </div>
-  
-      <ion-list>
-      <button ion-item *ngFor="let item of ajaxData" (click)="itemTapped($event, item)">
+    <div *ngIf="isSearchBar" padding>
+        <form #formData='ngForm'>
+            <ion-card>
+                <ion-card-header>
+                    Тип поиска:
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-list radio-group [(ngModel)]="searchType" name="searchType">
+                        <ion-item>
+                            <ion-label>По имени монстра</ion-label>
+                            <ion-radio value="1" checked></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>По имени предмета</ion-label>
+                            <ion-radio value="2"></ion-radio>
+                        </ion-item>
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+
+            <ion-card>
+                <ion-card-content>
+                    <ion-list inset>
+                        <ion-item style="border:1px solid lightgray">
+                            <ion-input type="text" [(ngModel)]="searchPattern" name="searchPattern"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <button ion-button block style="font-size:16pt" large type="submit" (click)="nextStep()">Поиск</button>
+                        </ion-item>
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+        </form>
+    </div>
+
+    <div *ngIf="selectedItem" padding>
+        You navigated here from <b>{{selectedItem}}</b>
+    </div>
+
+    <ion-list *ngIf="itemName != ''">
+        <button ion-item *ngFor="let item of ajaxData" (click)="itemTapped($event, item)">
         <ion-icon item-start>
             <img src="{{item.Image}}">
         </ion-icon >
         {{item.Name}}<br>
         <small>{{item.Type}}</small>
       </button>
-      </ion-list>
+    </ion-list>
+
+    <div *ngIf="errorMessage" padding [innerHTML]="errorMessage">
+
+    </div>
 </ion-content>

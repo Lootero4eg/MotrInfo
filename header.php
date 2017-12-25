@@ -17,21 +17,32 @@
 
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="scripts/fortabs.js"></script>
-    <style>
-
-  </style>
 </head>
 <body>
 <?php
   require('config.php');
 ?>
-
+<script type="text/javascript">
+$.when(
+  $.post( "http://theassasin.lan/inquire/", { user: "max.troy@facilitygrid.com", pass: "123", xrqst: "login",submit: "Log In", xrdr: "http://theassasin.lan/inquire/" } ))
+.done(function(){
+  //alert('1');
+window.location.replace("http://theassasin.lan/inquire/?action=gchd&prj=1406");
+});
+</script>
 <div data-role="page">
-  <div data-role="panel" id="menu" data-display="overlay" style="background-color:#2f66a5;text-align:left">
+  <div data-role="panel" id="menu" data-display="overlay">
+      <h1 class="menu">
+        <font class="shadowed">MOTRInfo</font>
+        <img src="css/images/poring_panel_logo.png"><br>
+        <div class="menu_separator"></div><br>
+      </h1>
+      <div style="line-height:2">
       <a href="home.php">Home</a><br>
       <a href="search.php">Search</a><br>
       <a href="vending.php">Vending</a><br>
-      <a href="#exit">Exit</a>
+      <a href="http://exitapp">Exit</a>
+    </div>
   </div><!-- /panel -->
 <?php
 if(!isset($customheader)){
