@@ -25,10 +25,10 @@ export class MotrRestServiceProvider {
       });
   }
 
-  public getMonsterInfoById(monster_id: number) {
+  public getMonsterInfoById(monster_id: string) {
     return this.http
       .get(
-        `${this.rest_url}GetMonsterInfoById/${monster_id}`        
+        `${this.rest_url}getMonsterInfoById/${monster_id}`        
       )
       .toPromise()
       .then(data => data.json())
@@ -51,10 +51,10 @@ export class MotrRestServiceProvider {
       });
   }
 
-  public getItemInfoById(item_id: number) {
+  public getItemInfoById(item_type: string, item_id: string) {
     return this.http
       .get(
-        `${this.rest_url}GetItemInfoById/${item_id}`        
+        `${this.rest_url}getItemInfoById/${item_type}/${item_id}`        
       )
       .toPromise()
       .then(data => data.json())

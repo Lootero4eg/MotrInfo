@@ -32,10 +32,10 @@
                 <ion-card-content>
                     <ion-list inset>
                         <ion-item style="border:1px solid lightgray">
-                            <ion-input type="text" [(ngModel)]="searchPattern" name="searchPattern"></ion-input>
+                            <ion-input type="text" [(ngModel)]="searchPattern" name="searchPattern" clearInput></ion-input>
                         </ion-item>
                         <ion-item>
-                            <button ion-button block style="font-size:16pt" large type="submit" (click)="nextStep()">Поиск</button>
+                            <button ion-button block style="font-size:16pt" large type="submit" (click)="doSearch()">Поиск</button>
                         </ion-item>
                     </ion-list>
                 </ion-card-content>
@@ -43,12 +43,8 @@
         </form>
     </div>
 
-    <div *ngIf="selectedItem" padding>
-        You navigated here from <b>{{selectedItem}}</b>
-    </div>
-
-    <ion-list *ngIf="itemName != ''">
-        <button ion-item *ngFor="let item of ajaxData" (click)="itemTapped($event, item)">
+    <ion-list *ngIf="itemName != '' && isSearchList">
+        <button ion-item *ngFor="let item of ajaxData" (click)="itemTapped(item, item.Name, 2)">
         <ion-icon item-start>
             <img src="{{item.Image}}">
         </ion-icon >
@@ -57,7 +53,30 @@
       </button>
     </ion-list>
 
-    <div *ngIf="errorMessage" padding [innerHTML]="errorMessage">
+    <div *ngIf="errorMessage" padding [innerHTML]="errorMessage"></div>
 
+    <div *ngIf="selectedItem" padding>
+        <ion-slides>
+            <ion-slide>
+                <ion-list>
+                    <ion-item>
+                        <img src="{{ajaxData.monster_img}}">
+                    </ion-item>
+                    <ion-item>
+                        {{monster_maindata.Level}}
+                    </ion-item>
+                </ion-list>
+            </ion-slide>
+            <ion-slide>
+                <h1>Slide 1</h1>
+            </ion-slide>
+            <ion-slide>
+                <h1>Slide 1</h1>
+            </ion-slide>
+            <ion-slide>
+                <h1>Slide 1</h1>
+            </ion-slide>
+            You navigated here from <b>{{selectedItem.Link}}</b>
+        </ion-slides>
     </div>
 </ion-content>

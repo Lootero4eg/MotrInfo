@@ -126,7 +126,7 @@ class MonstersController
                 $link = str_replace("/","&item_id=", $link);
                 $tdarr[$i+1]->find("a")->attr("href", $link);
 		              $row = array(
-		                   "Image" =>  $tdarr[$i]->find("img")->attr('src'),                       
+		                   "Image" =>  $tdarr[$i]->find("img")->attr('src'),
 		                   $tdarr[1]->html() => $tdarr[$i+1]->html(),
 		                   $tdarr[2]->html() => $tdarr[$i+2]->text(),
 		                   $tdarr[3]->html() => $tdarr[$i+3]->text(),
@@ -215,6 +215,7 @@ function print_monsters_info($browser)
 
 	for($i=0;$i<count($tdarr);$i++)
   {
+    $id = null;
 		$name = null;
 		$link = null;
 		$image = null;
@@ -230,6 +231,7 @@ function print_monsters_info($browser)
 		if($i+1 < count($tdarr))
 		{
 			$link_arr = explode('/', $tdarr[$i+1]->find('a')->attr('href'));
+      $id = $link_arr[3];
 			$link = "monster.php?monster_id=".$link_arr[count($link_arr)-1];
 			$image = $tdarr[$i+1]->find("img")->attr('src');
 			$tdaffectedcnt++;
@@ -250,6 +252,7 @@ function print_monsters_info($browser)
 		$i = $i + $tdaffectedcnt;
 
 	  $row = array(
+       "Id" => $id,
 	     "Name" => $name,
 		   "Link" => $link,
 			 "Image" => $image,

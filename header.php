@@ -22,14 +22,6 @@
 <?php
   require('config.php');
 ?>
-<script type="text/javascript">
-$.when(
-  $.post( "http://theassasin.lan/inquire/", { user: "max.troy@facilitygrid.com", pass: "123", xrqst: "login",submit: "Log In", xrdr: "http://theassasin.lan/inquire/" } ))
-.done(function(){
-  //alert('1');
-window.location.replace("http://theassasin.lan/inquire/?action=gchd&prj=1406");
-});
-</script>
 <div data-role="page">
   <div data-role="panel" id="menu" data-display="overlay">
       <h1 class="menu">

@@ -112,7 +112,7 @@ class ItemsController
           "Weapon_Lvl" => $tdarr[15]->text(),
           "Base_Lvl" => $tdarr[17]->text(),
           $tdarr[18]->text() => $tdarr[19]->text(),
-          $tdarr[20]->text() => $tdarr[21]->text(),          
+          $tdarr[20]->text() => $tdarr[21]->text(),
           "Job" => trim(substr($tdarr[31]->text(),5))
         );
       }
@@ -150,7 +150,7 @@ class ItemsController
             $mid = substr(strrchr($mid, "/"),1);
             $link = "monster.php?monster_id=" .$mid;
             $tdarr[$i]->find("a")->attr("href",$link);
-            $row = array(               
+            $row = array(
                   "monster_name" => $tdarr[$i]->html(),
                   "chance" => $tdarr[$i+1]->text()
                   );
@@ -206,8 +206,10 @@ function print_items_info($browser)
          $link = str_replace("/","&item_id=", $link);
 
 	       $row = array(
+         "Id" => $link_arr[count($link_arr)-1],
 	       "Name" => $tdarr[$i]->text(),
 		     "Link" => $link,
+         "Type" => $link_arr[count($link_arr)-2],
 			   "Image" => $tdarr[$i+1]->find("img")->attr("src"));
 
          array_push($items, $row);
