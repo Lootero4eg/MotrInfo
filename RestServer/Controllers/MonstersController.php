@@ -125,9 +125,15 @@ class MonstersController
                 $link = str_replace("/database/","item.php?type=", $link);
                 $link = str_replace("/","&item_id=", $link);
                 $tdarr[$i+1]->find("a")->attr("href", $link);
+                $id = preg_replace("/.*item_id=(.*?)\".*$/",'$1',$tdarr[$i+1]->html());
+                $name = preg_replace("/.*<b>(.*?)<.*$/",'$1',$tdarr[$i+1]->html());
+                $type = preg_replace("/.*type=(.*?)&.*$/",'$1',$tdarr[$i+1]->html());                
 		              $row = array(
+                       "Id" => $id,
 		                   "Image" =>  $tdarr[$i]->find("img")->attr('src'),
-		                   $tdarr[1]->html() => $tdarr[$i+1]->html(),
+		                   "Link" => $tdarr[$i+1]->html(),
+                       $tdarr[1]->html() => $name,
+                       "Type" => $type,
 		                   $tdarr[2]->html() => $tdarr[$i+2]->text(),
 		                   $tdarr[3]->html() => $tdarr[$i+3]->text(),
 		                   "Weight" => $tdarr[$i+4]->text(),

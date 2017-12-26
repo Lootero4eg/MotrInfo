@@ -56,9 +56,9 @@
 
     <div *ngIf="errorMessage" padding [innerHTML]="errorMessage"></div>
 
-    <div *ngIf="selectedItem" padding>
-        <ion-slides>
-            <ion-slide>
+    <div *ngIf="isMonsterSelected">
+        <ion-slides pager>
+            <ion-slide class="cards_top_offset">
                 <ion-card>
                     <ion-card-header>
                         Основные характеристики
@@ -79,57 +79,222 @@
                                 <br> MDEF: {{ajaxData?.maindata?.MDEF}}
                                 <br> EXP: {{ajaxData?.maindata?.EXP}}
                                 <br> Job EXP: {{jobExp}}
-                                <br> Range: {{ajaxData?.maindata?.Range}}                                
+                                <br> Range: {{ajaxData?.maindata?.Range}}
                             </ion-item>
                         </ion-list>
                     </ion-card-content>
                 </ion-card>
             </ion-slide>
-            <ion-slide>
+            <ion-slide class="cards_top_offset">
                 <ion-card>
                     <ion-card-header>
                         Статы
                     </ion-card-header>
-                    <ion-card-content>                                                    
-                            <ion-item>
-                                STR: {{ajaxData?.maindata?.STR}}
-                                <br> AGI: {{ajaxData?.maindata?.AGI}}
-                                <br> VIT: {{ajaxData?.maindata?.VIT}}
-                                <br> INT: {{ajaxData?.maindata?.INT}}
-                                <br> DEX: {{ajaxData?.maindata?.DEX}}
-                                <br> LUK: {{ajaxData?.maindata?.LUK}}
-                                <br> Speed: {{ajaxData?.maindata?.Speed}}                                
-                            </ion-item>                        
+                    <ion-card-content>
+                        <ion-item>
+                            <table border="0" width="100%">
+                                <tr>
+                                    <td>STR:</td>
+                                    <td>{{ajaxData?.maindata?.STR}}</td>
+                                </tr>
+                                <tr>
+                                    <td>AGI:</td>
+                                    <td>{{ajaxData?.maindata?.AGI}}</td>
+                                </tr>
+                                <tr>
+                                    <td>VIT:</td>
+                                    <td>{{ajaxData?.maindata?.VIT}}</td>
+                                </tr>
+                                <tr>
+                                    <td>INT:</td>
+                                    <td>{{ajaxData?.maindata?.INT}}</td>
+                                </tr>
+                                <tr>
+                                    <td>DEX:</td>
+                                    <td>{{ajaxData?.maindata?.DEX}}</td>
+                                </tr>
+                                <tr>
+                                    <td>LUK:</td>
+                                    <td>{{ajaxData?.maindata?.LUK}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Speed:</td>
+                                    <td>{{ajaxData?.maindata?.Speed}}</td>
+                                </tr>
+                            </table>
+                        </ion-item>
                     </ion-card-content>
                 </ion-card>
                 <ion-card>
                     <ion-card-header>
                         Уязвимости
                     </ion-card-header>
-                    <ion-card-content>                                                    
-                            <ion-item>
-                                Neutral: {{ajaxData?.maindata?.Vulnerables?.Neutral}}
-                                <br> Water: {{ajaxData?.maindata?.Vulnerables?.Water}}
-                                <br> Earth: {{ajaxData?.maindata?.Vulnerables?.Earth}}
-                                <br> Fire: {{ajaxData?.maindata?.Vulnerables?.Fire}}
-                                <br> Wind: {{ajaxData?.maindata?.Vulnerables?.Wind}}
-                                <br> Poison: {{ajaxData?.maindata?.Vulnerables?.Poison}}
-                                <br> Holy: {{ajaxData?.maindata?.Vulnerables?.Holy}}
-                                <br> Shadow: {{ajaxData?.maindata?.Vulnerables?.Shadow}}
-                                <br> Ghost: {{ajaxData?.maindata?.Vulnerables?.Ghost}}
-                                <br> Undead: {{ajaxData?.maindata?.Vulnerables?.Undead}}
-                            </ion-item>                        
+                    <ion-card-content>
+                        <ion-item>
+                            <table border="0" width="100%">
+                                <tr>
+                                    <td>Neutral:</td>
+                                    <td>{{ajaxData?.maindata?.Vulnerables?.Neutral}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Water:</td>
+                                    <td>{{ajaxData?.maindata?.Vulnerables?.Water}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Earth:</td>
+                                    <td>{{ajaxData?.maindata?.Vulnerables?.Earth}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Fire:</td>
+                                    <td>{{ajaxData?.maindata?.Vulnerables?.Fire}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Wind:</td>
+                                    <td>{{ajaxData?.maindata?.Vulnerables?.Wind}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Poison:</td>
+                                    <td>{{ajaxData?.maindata?.Vulnerables?.Poison}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Holy:</td>
+                                    <td>{{ajaxData?.maindata?.Vulnerables?.Holy}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Shadow:</td>
+                                    <td>{{ajaxData?.maindata?.Vulnerables?.Shadow}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Ghost:</td>
+                                    <td>{{ajaxData?.maindata?.Vulnerables?.Ghost}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Undead:</td>
+                                    <td>{{ajaxData?.maindata?.Vulnerables?.Undead}}</td>
+                                </tr>
+                            </table>
+                        </ion-item>
                     </ion-card-content>
                 </ion-card>
             </ion-slide>
-            <ion-slide>
-                <h1>Slide 1</h1>
+            <ion-slide class="cards_top_offset">
+                <ion-card>
+                    <ion-card-header>
+                        Дроп
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-item>
+                            <table border="0" width="100%">
+                                <tr *ngFor="let item of ajaxData?.drop" (click)="itemTapped(item, item.Name, 2)">
+                                    <td><img src="{{item.Image}}"></td>
+                                    <td><button ion-button clear default>{{item.Name}}</button></td>
+                                    <td>{{item.Chance}}%</td>
+                                </tr>
+                            </table>
+                        </ion-item>
+                    </ion-card-content>
+                </ion-card>
             </ion-slide>
-            <ion-slide>
-                <h1>Slide 1</h1>
+            <ion-slide class="cards_top_offset">
+                <ion-card>
+                    <ion-card-header>
+                        Места обитания
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-item>
+                            <table border="0" width="100%">
+                                <tr style="font-weight:bold">
+                                    <td>Локация</td>
+                                    <td>Количество</td>
+                                    <td>Время респауна</td>
+                                </tr>
+                                <tr *ngFor="let item of ajaxData?.locations" (click)="itemTapped(item, item.Name, 2)">
+                                    <td><button ion-button clear default>{{getMapFromLink(item.Name)}}</button></td>
+                                    <td>{{item.Count}}</td>
+                                    <td>{{item.Respawn}}</td>
+                                </tr>
+                            </table>
+                        </ion-item>
+                    </ion-card-content>
+                </ion-card>
             </ion-slide>
-            You navigated here from
-            <b>{{selectedItem.Link}}</b>
+            <ion-slide class="cards_top_offset">
+                <ion-card>
+                    <ion-card-header>
+                        Скилы
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-item>
+                            <table border="0" width="100%">
+                                <tr style="font-weight:bold">
+                                    <td></td>
+                                    <td>Название скила</td>
+                                    <td>Уровень скила</td>
+                                </tr>
+                                <tr *ngFor="let item of ajaxData?.skills" (click)="itemTapped(item, item.Name, 2)">
+                                    <img src="{{item.Image}}">
+                                    <td><button ion-button clear default>{{getSkillFromLink(item.Skill)}}</button></td>
+                                    <td>{{item.Level}}</td>
+                                </tr>
+                            </table>
+                        </ion-item>
+                    </ion-card-content>
+                </ion-card>
+            </ion-slide>
+        </ion-slides>
+    </div>
+
+    <div *ngIf="isItemSelected">
+        <ion-slides pager>
+            <ion-slide class="cards_top_offset">
+                <ion-card>
+                    <ion-card-header>
+                        Описание вещи
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-list>
+                            <ion-item>
+                                <img src="{{ajaxData.item_img}}">
+                            </ion-item>
+                            <ion-item>
+                                Weight: {{ajaxData?.weight}}
+                                <br> Buy: {{ajaxData?.buy}}
+                                <br> Sell: {{ajaxData?.sell}}
+                                <br> Compound: {{ajaxData?.compound}}
+                                <br> Description:<br>
+                                <font [innerHTML]="description"></font>
+                                <font *ngIf="isSearchBar">
+                                    Weight: {{ajaxData?.weight}}
+                                    <br> Buy: {{ajaxData?.buy}}
+                                    <br> Sell: {{ajaxData?.sell}}
+                                    <br> Compound: {{ajaxData?.compound}}
+                                    <br> Description: {{ajaxData?.description}}
+                                </font>
+                            </ion-item>
+                        </ion-list>
+                    </ion-card-content>
+                </ion-card>
+            </ion-slide>
+
+            <ion-slide class="cards_top_offset">
+                <ion-card>
+                    <ion-card-header>
+                        Выпадает из
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-item>
+                            <table border="0" width="100%">
+                                <tr *ngFor="let item of ajaxData?.drop" (click)="searchByInnerMonsterId(getMonsterIdFromLink(item.monster_name),getMonsterNameFromLink(item.monster_name))">
+                                    <td><button ion-button clear default>{{getMonsterNameFromLink(item.monster_name)}} 
+                                    </button></td>
+                                    <td>{{item.chance}}%</td>
+                                </tr>
+                            </table>
+                        </ion-item>
+                    </ion-card-content>
+                </ion-card>
+            </ion-slide>
+
         </ion-slides>
     </div>
 </ion-content>

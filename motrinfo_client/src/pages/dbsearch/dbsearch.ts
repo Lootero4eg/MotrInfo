@@ -12,21 +12,22 @@ import { MotrRestServiceProvider } from '../../providers/motr-rest-service/motr-
 })
 export class DbSearchPage {
   searchCaption = "Поиск по базе данных";
-  searchPattern: string = "";
+  searchPattern: string = "zargon";
   selectedItem: any;
   isSearchBar: boolean = true;
   isSearchList: boolean = false;
+  isMonsterSelected = false;
+  isItemSelected = false;
   ajaxData: any = [];
   jobExp: any = null;
+  description: any = null;
   errorMessage: string;
   notFoundMessage: string = "К сожалению по запросу <b>{$name}</b> ничего не найдено!";
-  searchType: string = "1";
+  searchType: string = "2";
   private nested_lvl :number = 0;
 
 
-constructor(public navCtrl: NavController, public navParams: NavParams, private rest: MotrRestServiceProvider) {
-    // If we navigated to this page, we will have an item available as a nav param
-    //this.selectedItem = navParams.get('item');  
+constructor(public navCtrl: NavController, public navParams: NavParams, private rest: MotrRestServiceProvider) {    
     console.log(this.navParams);
     
     this.nested_lvl = this.navParams.get('nestedLevel') != undefined ? this.navParams.get('nestedLevel') : 0;
@@ -48,7 +49,13 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
       this.selectedItem = this.navParams.get('selectedItem');      
     }
 
-    
+    if(this.navParams.get('isMonsterSelected') != undefined && this.nested_lvl >= 2){
+      this.isMonsterSelected = this.navParams.get('isMonsterSelected');      
+    }
+
+    if(this.navParams.get('isItemSelected') != undefined && this.nested_lvl >= 2){
+      this.isItemSelected = this.navParams.get('isItemSelected');      
+    }
   }
 
   ngOnInit() { 
@@ -94,20 +101,18 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
          error => this.errorMessage = <any>error);
   }
 
-  getItemInfoById(item_id, itemType) {
+  getItemInfoById(itemType, item_id) {
     this.rest.getItemInfoById(itemType, item_id)
        .then(
-         data => {
-          if(data.length > 0)
-           this.ajaxData = data;
-           else
-           this.errorMessage = "К сожалению по вашему запросу ничего не найдено!";
+         data => {          
+            this.ajaxData = data;
+            this.description = this.convertDescrColor(data.description);
         },
          error => this.errorMessage = <any>error);
   }
 
   doSearch(){    
-      this.itemTapped(this.searchPattern,"Поиск: "+this.searchPattern, 1);
+      this.itemTapped(this.searchPattern,"Поиск: " + this.searchPattern, 1);
   }
 
   searchByName(){                
@@ -122,8 +127,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
     }    
   }
 
-  searchById(){        
-    //console.log(this.ajaxData);
+  searchById(){            
     switch(this.searchType){
       case "1":
         this.getMonsterInfoById(this.selectedItem.Id); 
@@ -135,14 +139,49 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
     }    
   }
 
-  itemTapped(item: any, caption: string, nestedLevel: number) {    
+   searchByInnerMonsterId(monster_id: string, monster_name: string){
+    this.selectedItem.Id = monster_id;
+    this.searchType = "1";
+    this.itemTapped(this.selectedItem, monster_name, 3);//на ините сделать смену типов и ласт юзед обжект      
+  }
+
+  getMonsterNameFromLink(s: string):string{
+    return s.replace(/.*d=.*>(.*?)<.*$/,'$1');
+  }
+
+  getMonsterIdFromLink(s: string):string{
+    return s.replace(/.*d=(.*?)".*$/,'$1');
+  }
+
+  getMapFromLink(s: string):string{    
+    return s.replace(/.*maps\/.*">(.*?)(<.*)*$/,'$1');
+  }
+
+  getSkillFromLink(s: string):string{    
+    return s.replace(/.*skills\/.*">(.*?)(<.*)*$/,'$1');
+  }
+
+  convertDescrColor(s: string): string{ 
+    console.log(s);
+    return s.replace(/ffffff/g,'000000');
+  }
+
+  itemTapped(item: any, caption: string, nestedLevel: number) {     
+    this.isMonsterSelected = false;
+    this.isItemSelected = false;
+    if(item.Id != undefined && this.searchType == "1")
+      this.isMonsterSelected = true;
+    if(item.Id != undefined && this.searchType == "2")
+      this.isItemSelected = true;
     this.navCtrl.push(DbSearchPage, {      
       searchPattern: item,
       selectedItem: item,
       isSearchBar: this.isSearchBar,
       searchType: this.searchType,
       searchCaption: caption,
-      nestedLevel: nestedLevel
+      nestedLevel: nestedLevel,
+      isMonsterSelected: this.isMonsterSelected,
+      isItemSelected: this.isItemSelected
     });
   }
 }

@@ -9,9 +9,7 @@ import { DbSearchPage } from '../pages/dbsearch/dbsearch';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-//import { Http } from '@angular/http';
 import { HttpModule } from '@angular/http';
-//import { HttpClientModule } from '@angular/common/http';
 import { MotrRestServiceProvider } from '../providers/motr-rest-service/motr-rest-service'; 
 
 @NgModule({
