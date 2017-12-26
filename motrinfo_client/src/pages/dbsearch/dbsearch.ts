@@ -17,7 +17,7 @@ export class DbSearchPage {
   isSearchBar: boolean = true;
   isSearchList: boolean = false;
   ajaxData: any = [];
-  monster_maindata: any = [];
+  jobExp: any = null;
   errorMessage: string;
   notFoundMessage: string = "К сожалению по запросу <b>{$name}</b> ничего не найдено!";
   searchType: string = "1";
@@ -83,7 +83,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
   getMonsterInfoById(monster_id) {
     this.rest.getMonsterInfoById(monster_id)
        .then(
-         data => {this.ajaxData = data; this.monster_maindata = this.getMonsterMainData(data.maindata)},
+         data => {this.ajaxData = data; this.jobExp = data.maindata['Job EXP']},
          error => this.errorMessage = <any>error);         
   }
 
@@ -133,12 +133,6 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
         this.getItemInfoById(this.selectedItem.Type, this.selectedItem.Id);
         break;
     }    
-  }
-
-  private getMonsterMainData(property_name: string){
-    //console.log(this.ajaxData.maindata);
-    this.monster_maindata = Object.keys(this.ajaxData.maindata);
-    console.log(this.monster_maindata);
   }
 
   itemTapped(item: any, caption: string, nestedLevel: number) {    

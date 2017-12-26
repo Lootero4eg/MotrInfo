@@ -1,9 +1,9 @@
 <ion-header>
     <ion-navbar>
         <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-        <ion-title class="centered_text">{{ searchCaption }}</ion-title>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{ searchCaption }}</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -45,12 +45,13 @@
 
     <ion-list *ngIf="itemName != '' && isSearchList">
         <button ion-item *ngFor="let item of ajaxData" (click)="itemTapped(item, item.Name, 2)">
-        <ion-icon item-start>
-            <img src="{{item.Image}}">
-        </ion-icon >
-        {{item.Name}}<br>
-        <small>{{item.Type}}</small>
-      </button>
+            <ion-icon item-start>
+                <img src="{{item.Image}}">
+            </ion-icon>
+            {{item.Name}}
+            <br>
+            <small>{{item.Type}}</small>
+        </button>
     </ion-list>
 
     <div *ngIf="errorMessage" padding [innerHTML]="errorMessage"></div>
@@ -58,24 +59,68 @@
     <div *ngIf="selectedItem" padding>
         <ion-slides>
             <ion-slide>
-                <ion-list>
-                    <ion-item>
-                        <img src="{{ajaxData.monster_img}}">                         
-                    </ion-item>
-                    <ion-item>
-                        Level: {{ajaxData?.maindata?.Level}}<br>
-                        Scale: {{ajaxData?.maindata?.Scale}}<br>
-                        Race: {{ajaxData?.maindata?.Race}}<br>
-                        Element: {{ajaxData?.maindata?.Element}}<br>
-                        HP: {{ajaxData?.maindata?.HP}}<br>
-                        ATK: {{ajaxData?.maindata?.ATK}}<br>
-                        DEF: {{ajaxData?.maindata?.DEF}}<br>
-                        MDEF: {{ajaxData?.maindata?.MDEF}}<br>
-                        EXP: {{ajaxData?.maindata?.EXP}}<br>
-                        Job EXP: {{ajaxData?.maindata['Job EXP']}}<br>
-                        Range: {{ajaxData?.maindata?.Range}}<br>
-                    </ion-item>
-                </ion-list>
+                <ion-card>
+                    <ion-card-header>
+                        Основные характеристики
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-list>
+                            <ion-item>
+                                <img src="{{ajaxData.monster_img}}">
+                            </ion-item>
+                            <ion-item>
+                                Level: {{ajaxData?.maindata?.Level}}
+                                <br> Scale: {{ajaxData?.maindata?.Scale}}
+                                <br> Race: {{ajaxData?.maindata?.Race}}
+                                <br> Element: {{ajaxData?.maindata?.Element}}
+                                <br> HP: {{ajaxData?.maindata?.HP}}
+                                <br> ATK: {{ajaxData?.maindata?.ATK}}
+                                <br> DEF: {{ajaxData?.maindata?.DEF}}
+                                <br> MDEF: {{ajaxData?.maindata?.MDEF}}
+                                <br> EXP: {{ajaxData?.maindata?.EXP}}
+                                <br> Job EXP: {{jobExp}}
+                                <br> Range: {{ajaxData?.maindata?.Range}}                                
+                            </ion-item>
+                        </ion-list>
+                    </ion-card-content>
+                </ion-card>
+            </ion-slide>
+            <ion-slide>
+                <ion-card>
+                    <ion-card-header>
+                        Статы
+                    </ion-card-header>
+                    <ion-card-content>                                                    
+                            <ion-item>
+                                STR: {{ajaxData?.maindata?.STR}}
+                                <br> AGI: {{ajaxData?.maindata?.AGI}}
+                                <br> VIT: {{ajaxData?.maindata?.VIT}}
+                                <br> INT: {{ajaxData?.maindata?.INT}}
+                                <br> DEX: {{ajaxData?.maindata?.DEX}}
+                                <br> LUK: {{ajaxData?.maindata?.LUK}}
+                                <br> Speed: {{ajaxData?.maindata?.Speed}}                                
+                            </ion-item>                        
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+                    <ion-card-header>
+                        Уязвимости
+                    </ion-card-header>
+                    <ion-card-content>                                                    
+                            <ion-item>
+                                Neutral: {{ajaxData?.maindata?.Vulnerables?.Neutral}}
+                                <br> Water: {{ajaxData?.maindata?.Vulnerables?.Water}}
+                                <br> Earth: {{ajaxData?.maindata?.Vulnerables?.Earth}}
+                                <br> Fire: {{ajaxData?.maindata?.Vulnerables?.Fire}}
+                                <br> Wind: {{ajaxData?.maindata?.Vulnerables?.Wind}}
+                                <br> Poison: {{ajaxData?.maindata?.Vulnerables?.Poison}}
+                                <br> Holy: {{ajaxData?.maindata?.Vulnerables?.Holy}}
+                                <br> Shadow: {{ajaxData?.maindata?.Vulnerables?.Shadow}}
+                                <br> Ghost: {{ajaxData?.maindata?.Vulnerables?.Ghost}}
+                                <br> Undead: {{ajaxData?.maindata?.Vulnerables?.Undead}}
+                            </ion-item>                        
+                    </ion-card-content>
+                </ion-card>
             </ion-slide>
             <ion-slide>
                 <h1>Slide 1</h1>
@@ -83,10 +128,8 @@
             <ion-slide>
                 <h1>Slide 1</h1>
             </ion-slide>
-            <ion-slide>
-                <h1>Slide 1</h1>
-            </ion-slide>
-            You navigated here from <b>{{selectedItem.Link}}</b>
+            You navigated here from
+            <b>{{selectedItem.Link}}</b>
         </ion-slides>
     </div>
 </ion-content>
