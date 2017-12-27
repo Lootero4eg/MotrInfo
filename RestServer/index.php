@@ -7,6 +7,7 @@ include('vendor/autoload.php');
 require __DIR__ . '/source/Jacwright/RestServer/RestServer.php';
 require 'Controllers/MonstersController.php';
 require 'Controllers/ItemsController.php';
+require 'Controllers/NewsController.php';
 
 #var_dump($_POST);
 
@@ -15,6 +16,7 @@ header('Access-Control-Allow-Origin: *');
 $server = new \Jacwright\RestServer\RestServer('debug');
 $server->addClass('MonstersController');
 $server->addClass('ItemsController');
+$server->addClass('NewsController');
 $server->handle();
 
 ?>
