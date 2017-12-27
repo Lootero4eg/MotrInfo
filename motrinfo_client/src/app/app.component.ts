@@ -22,8 +22,8 @@ export class motrinfo_client {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'News', component: NewsPage },
-      { title: 'List', component: DbSearchPage }
+      { title: 'Новости', component: NewsPage },
+      { title: 'База знаний', component: DbSearchPage }
     ];
 
   }

@@ -14,17 +14,15 @@
                 <ion-card-header>
                     Тип поиска:
                 </ion-card-header>
-                <ion-card-content>
-                    <ion-list radio-group [(ngModel)]="searchType" name="searchType">
-                        <ion-item>
-                            <ion-label>По имени монстра</ion-label>
-                            <ion-radio value="1" checked></ion-radio>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label>По имени предмета</ion-label>
-                            <ion-radio value="2"></ion-radio>
-                        </ion-item>
-                    </ion-list>
+                <ion-card-content radio-group [(ngModel)]="searchType" name="searchType">
+                    <ion-item>
+                        <ion-label>По имени монстра</ion-label>
+                        <ion-radio value="1" checked></ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>По имени предмета</ion-label>
+                        <ion-radio value="2"></ion-radio>
+                    </ion-item>
                 </ion-card-content>
             </ion-card>
 
@@ -35,7 +33,7 @@
                             <ion-input type="text" [(ngModel)]="searchPattern" name="searchPattern" clearInput></ion-input>
                         </ion-item>
                         <ion-item>
-                            <button ion-button block style="font-size:16pt" large type="submit" (click)="doSearch()">Поиск</button>
+                            <button ion-button block large type="submit" (click)="doSearch()" color="main">Поиск</button>
                         </ion-item>
                     </ion-list>
                 </ion-card-content>
@@ -43,7 +41,7 @@
         </form>
     </div>
 
-    <ion-list *ngIf="itemName != '' && isSearchList">
+    <ion-list *ngIf="itemName != '' && isSearchList" style="background-color:red">
         <button ion-item *ngFor="let item of ajaxData" (click)="itemTapped(item, item.Name, 2)">
             <ion-icon item-start>
                 <img src="{{item.Image}}">
@@ -56,7 +54,7 @@
 
     <div *ngIf="errorMessage" padding [innerHTML]="errorMessage"></div>
 
-    <div *ngIf="isMonsterSelected">
+    <div *ngIf="isMonsterSelected && loading_done">
         <ion-slides pager>
             <ion-slide class="cards_top_offset">
                 <ion-card>
@@ -64,24 +62,58 @@
                         Основные характеристики
                     </ion-card-header>
                     <ion-card-content>
-                        <ion-list>
-                            <ion-item>
-                                <img src="{{ajaxData.monster_img}}">
-                            </ion-item>
-                            <ion-item>
-                                Level: {{ajaxData?.maindata?.Level}}
-                                <br> Scale: {{ajaxData?.maindata?.Scale}}
-                                <br> Race: {{ajaxData?.maindata?.Race}}
-                                <br> Element: {{ajaxData?.maindata?.Element}}
-                                <br> HP: {{ajaxData?.maindata?.HP}}
-                                <br> ATK: {{ajaxData?.maindata?.ATK}}
-                                <br> DEF: {{ajaxData?.maindata?.DEF}}
-                                <br> MDEF: {{ajaxData?.maindata?.MDEF}}
-                                <br> EXP: {{ajaxData?.maindata?.EXP}}
-                                <br> Job EXP: {{jobExp}}
-                                <br> Range: {{ajaxData?.maindata?.Range}}
-                            </ion-item>
-                        </ion-list>
+                        <ion-item>
+                            <img src="{{ajaxData.monster_img}}">
+                        </ion-item>
+                        <ion-item>
+                            <table border="0" width="100%">
+                                <tr>
+                                    <td>Level:</td>
+                                    <td>{{ajaxData?.maindata?.Level}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Scale:</td>
+                                    <td>{{ajaxData?.maindata?.Scale}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Race:</td>
+                                    <td>{{ajaxData?.maindata?.Race}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Element:</td>
+                                    <td>{{ajaxData?.maindata?.Element}}</td>
+                                </tr>
+                                <tr>
+                                    <td>HP:</td>
+                                    <td>{{ajaxData?.maindata?.HP}}</td>
+                                </tr>
+                                <tr>
+                                    <td>ATK:</td>
+                                    <td>{{ajaxData?.maindata?.ATK}}</td>
+                                </tr>
+                                <tr>
+                                    <td>DEF:</td>
+                                    <td>{{ajaxData?.maindata?.DEF}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>MDEF:</td>
+                                    <td>{{ajaxData?.maindata?.MDEF}}</td>
+                                </tr>
+                                <tr>
+                                    <td>EXP:</td>
+                                    <td>{{ajaxData?.maindata?.EXP}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Job EXP:</td>
+                                    <td>{{jobExp}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Range:</td>
+                                    <td>{{ajaxData?.maindata?.Range}}</td>
+                                </tr>
+                            </table>
+                        </ion-item>
                     </ion-card-content>
                 </ion-card>
             </ion-slide>
@@ -185,7 +217,7 @@
                     <ion-card-content>
                         <ion-item>
                             <table border="0" width="100%">
-                                <tr *ngFor="let item of ajaxData?.drop" (click)="itemTapped(item, item.Name, 2)">
+                                <tr *ngFor="let item of ajaxData?.drop" (click)="searchByInnerItemId(item)">
                                     <td><img src="{{item.Image}}"></td>
                                     <td><button ion-button clear default>{{item.Name}}</button></td>
                                     <td>{{item.Chance}}%</td>
@@ -244,7 +276,7 @@
         </ion-slides>
     </div>
 
-    <div *ngIf="isItemSelected">
+    <div *ngIf="isItemSelected && loading_done">
         <ion-slides pager>
             <ion-slide class="cards_top_offset">
                 <ion-card>
@@ -257,19 +289,65 @@
                                 <img src="{{ajaxData.item_img}}">
                             </ion-item>
                             <ion-item>
-                                Weight: {{ajaxData?.weight}}
-                                <br> Buy: {{ajaxData?.buy}}
-                                <br> Sell: {{ajaxData?.sell}}
-                                <br> Compound: {{ajaxData?.compound}}
-                                <br> Description:<br>
-                                <font [innerHTML]="description"></font>
-                                <font *ngIf="isSearchBar">
-                                    Weight: {{ajaxData?.weight}}
-                                    <br> Buy: {{ajaxData?.buy}}
-                                    <br> Sell: {{ajaxData?.sell}}
-                                    <br> Compound: {{ajaxData?.compound}}
-                                    <br> Description: {{ajaxData?.description}}
-                                </font>
+                                <table border="0" width="100%">
+                                    <tr *ngIf="ajaxData?.wearable_info?.Class">
+                                        <td>Class</td>
+                                        <td>{{ajaxData?.wearable_info?.Class}}</td>
+                                    </tr>
+                                    <tr *ngIf="ajaxData?.wearable_info?.Slot">
+                                        <td>Slot</td>
+                                        <td>{{ajaxData?.wearable_info?.Slot}}</td>
+                                    </tr>
+                                    <tr *ngIf="ajaxData?.wearable_info?.ATK_MATK">
+                                        <td>ATK/MATK</td>
+                                        <td>{{ajaxData?.wearable_info?.ATK_MATK}}</td>
+                                    </tr>
+                                    <tr *ngIf="ajaxData?.wearable_info?.Weapon_Lvl">
+                                        <td>Weapon level</td>
+                                        <td>{{ajaxData?.wearable_info?.Weapon_Lvl}}</td>
+                                    </tr>
+                                    <tr *ngIf="ajaxData?.wearable_info?.Range">
+                                        <td>Weapon range</td>
+                                        <td>{{ajaxData?.wearable_info?.Range}}</td>
+                                    </tr>
+                                    <tr *ngIf="ajaxData?.wearable_info?.DEF">
+                                        <td>DEF</td>
+                                        <td>{{ajaxData?.wearable_info?.DEF}}</td>
+                                    </tr>
+                                    <tr *ngIf="ajaxData?.wearable_info?.DEF">
+                                        <td>Sex</td>
+                                        <td>{{ajaxData?.wearable_info?.Sex}}</td>
+                                    </tr>
+                                    <tr *ngIf="ajaxData?.wearable_info?.Base_Lvl">
+                                        <td>Base level</td>
+                                        <td>{{ajaxData?.wearable_info?.Base_Lvl}}</td>
+                                    </tr>
+                                    <tr *ngIf="ajaxData?.wearable_info?.Job" text-wrap>
+                                        <td>Job</td>
+                                        <td>{{ajaxData?.wearable_info?.Job}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Weight</td>
+                                        <td>{{ajaxData?.weight}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Buy</td>
+                                        <td>{{ajaxData?.buy}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sell</td>
+                                        <td>{{ajaxData?.sell}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Compound</td>
+                                        <td padding>{{ajaxData?.compound}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" text-wrap>Description:<br>
+                                            <font [innerHTML]="description" text-wrap></font>
+                                        </td>
+                                    </tr>
+                                </table>
                             </ion-item>
                         </ion-list>
                     </ion-card-content>

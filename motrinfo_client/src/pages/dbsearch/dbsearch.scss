@@ -3,7 +3,17 @@ page-dbsearch {
         top: 10px;
         bottom: inherit;
     }
+    div.swiper-pagination .swiper-pagination-bullet-active {
+        background-color: color($colors, primary);
+    }
     .cards_top_offset {
         margin-top: 30px;
+    }
+    .fixed-content {
+        background-color: color($colors, bgcolor2);
+    }
+    .label,
+    .input {
+        color: color($colors, main);
     }
 }

@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,3 +12,34 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+h1 {
+    text-align: center;
+    color: white;
+}
+
+font.shadowed {
+    text-shadow: 2px 2px 1px black;
+}
+
+.centered_text {
+    text-align: center;
+}
+
+.card-header {
+    color: #ba2c2c;
+    background-color: #d4e4f2;
+}
+
+.card-content table {
+    color: color($colors, main);
+}
+
+.menustyle {
+    background-color: color($colors, bgcolor);
+}
+
+.menuitems {
+    background-color: color($colors, bgcolor);
+    color: #ff9d1e;
+    font-weight: bold;
+}
