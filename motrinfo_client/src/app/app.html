@@ -13,7 +13,7 @@
         </h1>
 
         <div no-lines *ngFor="let p of pages">
-            <button (click)="openPage(p)" class="menuitems" style="line-height:1.3;font-size:14pt">
+            <button menuClose (click)="openPage(p)" class="menuitems" style="line-height:1.3;font-size:14pt">
         {{p.title}}
       </button>
         </div>
