@@ -94,9 +94,10 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
        .then(
          data => {          
            if(data.length > 0)
-           this.ajaxData = data;
+            this.ajaxData = data;
            else
-           this.errorMessage = this.notFoundMessage.replace(/{\$name}/,monster_name);
+            this.errorMessage = this.notFoundMessage.replace(/{\$name}/,monster_name);
+           
            this.loading.dismiss();
          }
          ,

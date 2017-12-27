@@ -12,8 +12,8 @@ import { DbSearchPage } from '../pages/dbsearch/dbsearch';
 export class motrinfo_client {
   @ViewChild(Nav) nav: Nav;
 
-  //rootPage: any = NewsPage;
-  rootPage: any = DbSearchPage;
+  rootPage: any = NewsPage;
+  //rootPage: any = DbSearchPage;
 
   pages: Array<{title: string, component: any}>;
 

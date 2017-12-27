@@ -1,3 +1,12 @@
 page-news {
+    .fixed-content {
+        background-color: color($colors, bgcolor2);
+    }
 
+    a img{
+        display: inline-block;
+        //margin: 10;
+        padding-right: 5px;
+        width: auto;
+    }
 }

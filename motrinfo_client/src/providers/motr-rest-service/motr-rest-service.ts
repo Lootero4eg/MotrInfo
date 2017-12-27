@@ -64,8 +64,21 @@ export class MotrRestServiceProvider {
       });
   }
 
-  private handleError (error: Response) {
+  public getNews() {
+    return this.http
+      .get(
+        `${this.rest_url}getNews`        
+      )
+      .toPromise()
+      .then(data => data.json())
+      .then(parsed_data => {
+        console.log(parsed_data);
+        return parsed_data;
+      });
+  }
+
+  /*private handleError (error: Response) {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');
-  }
+  }*/
 }
