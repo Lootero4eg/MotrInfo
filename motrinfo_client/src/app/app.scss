@@ -13,6 +13,11 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 $navBarColor: white;
+.welcome {
+    font-size: 14pt;
+    color: color($colors, light);
+}
+
 h1 {
     text-align: center;
     color: white;

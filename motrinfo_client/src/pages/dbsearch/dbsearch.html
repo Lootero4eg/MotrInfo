@@ -41,7 +41,7 @@
         </form>
     </div>
 
-    <ion-list *ngIf="itemName != '' && isSearchList" style="background-color:red">
+    <ion-list *ngIf="itemName != '' && isSearchList">
         <button ion-item *ngFor="let item of ajaxData" (click)="itemTapped(item, item.Name, 2)">
             <ion-icon item-start>
                 <img src="{{item.Image}}">
@@ -52,7 +52,7 @@
         </button>
     </ion-list>
 
-    <div *ngIf="errorMessage" padding [innerHTML]="errorMessage"></div>
+    <div *ngIf="errorMessage" padding [innerHTML]="errorMessage" class="welcome"></div>
 
     <div *ngIf="isMonsterSelected && loading_done">
         <ion-slides pager>
@@ -232,18 +232,18 @@
                     <ion-card-header>
                         Места обитания
                     </ion-card-header>
-                    <ion-card-content>
+                    <ion-card-content padding="false">
                         <ion-item>
                             <table border="0" width="100%">
                                 <tr style="font-weight:bold">
-                                    <td>Локация</td>
-                                    <td>Количество</td>
-                                    <td>Время респауна</td>
+                                    <th>Локация</th>
+                                    <th>Кол-во</th>
+                                    <th>Время респауна</th>
                                 </tr>
                                 <tr *ngFor="let item of ajaxData?.locations" (click)="itemTapped(item, item.Name, 2)">
-                                    <td><button ion-button clear default>{{getMapFromLink(item.Name)}}</button></td>
-                                    <td>{{item.Count}}</td>
-                                    <td>{{item.Respawn}}</td>
+                                    <td class="center"><button ion-button clear default>{{getMapFromLink(item.Name)}}</button></td>
+                                    <td class="center">{{item.Count}}</td>
+                                    <td class="center">{{item.Respawn}}</td>
                                 </tr>
                             </table>
                         </ion-item>
@@ -260,13 +260,13 @@
                             <table border="0" width="100%">
                                 <tr style="font-weight:bold">
                                     <td></td>
-                                    <td>Название скила</td>
-                                    <td>Уровень скила</td>
+                                    <th>Название скила</th>
+                                    <th>Уровень скила</th>
                                 </tr>
                                 <tr *ngFor="let item of ajaxData?.skills" (click)="itemTapped(item, item.Name, 2)">
-                                    <img src="{{item.Image}}">
-                                    <td><button ion-button clear default>{{getSkillFromLink(item.Skill)}}</button></td>
-                                    <td>{{item.Level}}</td>
+                                    <td class="center" [innerHTML]="fixSkillLink(item.Image)"></td>
+                                    <td class="center"><button ion-button clear default>{{getSkillFromLink(item.Skill)}}</button></td>
+                                    <td class="center">{{item.Level}}</td>
                                 </tr>
                             </table>
                         </ion-item>

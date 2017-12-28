@@ -16,4 +16,15 @@ page-dbsearch {
     .input {
         color: color($colors, main);
     }
+    td {
+        display: table-cell;
+        word-wrap: break-all;
+    }
+    th,
+    td.center {
+        text-align: center;
+    }
+    .card-content .item {
+        padding: 0px;
+    }
 }

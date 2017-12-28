@@ -220,6 +220,10 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
     return s.replace(/ffffff/g,'355f91');    
   }
 
+  fixSkillLink(link: string): string{
+    return link.replace(/\"/g,"'");
+  }
+
   itemTapped(item: any, caption: string, nestedLevel: number) {         
     this.navCtrl.push(DbSearchPage, {      
       searchPattern: item,
