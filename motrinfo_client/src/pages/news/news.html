@@ -1,24 +1,24 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
+    <ion-navbar>
+        <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+        <ion-title>Новости сервера</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <div *ngIf="newsData != []">
-      <ion-card *ngFor="let item of newsData ">
-          <ion-card-header>
-              <b>{{item.caption}}</b>
-              <br><small>{{item.post_date}}</small>
-          </ion-card-header>
-          <ion-card-content >
-              <div padding [innerHTML]="clearNewsEntry(item.content)">
+    <div *ngIf="newsData != []">
+        <ion-card *ngFor="let item of newsData ">
+            <ion-card-header>
+                <b>{{item.caption}}</b>
+                <br><small>{{item.post_date}}</small>
+            </ion-card-header>
+            <ion-card-content>
+                <div padding [innerHTML]="clearNewsEntry(item.content)">
 
-              </div>
-          </ion-card-content>
-      </ion-card>
-  </div>
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
 </ion-content>

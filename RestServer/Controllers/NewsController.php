@@ -33,7 +33,7 @@ class NewsController
         $newsentry = new NewsEntry();
         $newsentry->caption = pq($tab)->find("tr")->eq(0)->text();
         $newsentry->post_date = pq($tab)->find("tr")->eq(1)->text();
-        $newsentry->content = pq($tab)->find("tr")->eq(2)->html();
+        $newsentry->content = pq($tab)->find("tr")->eq(2)->find("td")->html();
         array_push($res, $newsentry);
       }
 

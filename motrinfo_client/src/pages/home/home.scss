@@ -1,0 +1,9 @@
+page-home {
+    .fixed-content {
+        background-color: color($colors, bgcolor2);
+    }
+    .welcome {
+        font-size: 14pt;
+        color: color($colors, light);
+    }
+}

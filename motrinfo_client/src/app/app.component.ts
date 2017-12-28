@@ -3,6 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { HomePage } from '../pages/home/home';
 import { NewsPage } from '../pages/news/news';
 import { DbSearchPage } from '../pages/dbsearch/dbsearch';
 
@@ -11,21 +12,25 @@ import { DbSearchPage } from '../pages/dbsearch/dbsearch';
 })
 export class motrinfo_client {
   @ViewChild(Nav) nav: Nav;
-
-  rootPage: any = NewsPage;
+  showSubmenu:boolean = false;
+  rootPage: any = HomePage;
+  selectedPage: any = this.rootPage;
   //rootPage: any = DbSearchPage;
+  menuItemStyle: any = [];
+  menuItemSelecteStyle: any = [];
 
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
-
+    
     // used for an example of ngFor and navigation
-    this.pages = [
+    this.pages = [      
       { title: 'Новости', component: NewsPage },
       { title: 'База знаний', component: DbSearchPage }
-    ];
-
+    ];        
+    this.menuItemStyle={'background-color' : '#125491','color':'white'};    
+    this.menuItemSelecteStyle={'background-color' : '#ff6b00','color':'white'};    
   }
 
   initializeApp() {
@@ -37,9 +42,26 @@ export class motrinfo_client {
     });
   }
 
+  ShowSubMenu(){
+    this.showSubmenu = !this.showSubmenu;
+  }
+
+  goToPage(n:number){
+    this.selectedPage = NewsPage;
+    this.nav.setRoot(NewsPage);
+  }
+
+  checkIfSelected(page):boolean{
+    if(this.selectedPage == page.component)
+      return true;
+    else
+      return false;
+  }
+
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+    this.selectedPage=page.component;
     this.nav.setRoot(page.component);
   }
 }
