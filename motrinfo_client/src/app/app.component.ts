@@ -31,8 +31,8 @@ export class motrinfo_client {
       { title: 'Новости', component: NewsPage },
       { title: 'База знаний', component: DbSearchPage }
     ];        
-    this.menuItemStyle={'background-color' : '#125491','color':'white'};    
-    this.menuItemSelecteStyle={'background-color' : '#ff6b00','color':'white'};    
+    /*this.menuItemStyle={'background-color' : '#125491','color':'white'};    
+    this.menuItemSelecteStyle={'background-color' : '#ff6b00','color':'white'}; */    
   }
 
   initializeApp() {
@@ -60,7 +60,7 @@ export class motrinfo_client {
 
   checkIfSelected(page):boolean{
     if(this.selectedPage == page.component)
-      return true;
+      return true;          
     else
       return false;
   }
@@ -76,7 +76,7 @@ export class motrinfo_client {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.selectedCustomPageNumber = 0;
-    this.selectedPage = page.component;
+    this.selectedPage = page.component;    
     this.nav.setRoot(page.component);
   }
 }

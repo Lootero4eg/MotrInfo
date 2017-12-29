@@ -8,7 +8,7 @@
 
     <ion-content class="menustyle" padding>
         <div no-lines *ngFor="let p of pages">
-            <button ion-button clear menuClose (click)="openPage(p)" class="menuitems" [ngStyle]="checkIfSelected(p)?menuItemSelecteStyle:menuItemStyle">
+            <button ion-button clear menuClose (click)="openPage(p)" class1="menuitems" [ngClass]="checkIfSelected(p) ? 'ms':'menuitems'">
                 {{p.title}}
             </button>
         </div>
