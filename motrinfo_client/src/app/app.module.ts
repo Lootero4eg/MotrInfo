@@ -6,6 +6,7 @@ import { motrinfo_client } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { NewsPage } from '../pages/news/news';
 import { DbSearchPage } from '../pages/dbsearch/dbsearch';
+import { TopsPage } from '../pages/tops/tops';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -18,7 +19,8 @@ import { MotrRestServiceProvider } from '../providers/motr-rest-service/motr-res
     motrinfo_client,
     HomePage,
     NewsPage,
-    DbSearchPage    
+    DbSearchPage,
+    TopsPage
   ],
   imports: [
     HttpModule,
@@ -30,7 +32,8 @@ import { MotrRestServiceProvider } from '../providers/motr-rest-service/motr-res
     motrinfo_client,
     HomePage,
     NewsPage,
-    DbSearchPage
+    DbSearchPage,
+    TopsPage
   ],
   providers: [
     StatusBar,

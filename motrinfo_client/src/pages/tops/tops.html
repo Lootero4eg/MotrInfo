@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+      </button>
+        <ion-title>{{ pageCaption }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <div>
+        <ion-segment color="light" *ngIf="isSegmentBarVisible" [ngModel]="segSelected">
+            <ion-segment-button *ngFor="let button of segmentButtons" value="{{button}}" (click)="segmentButtonClicked(button)">
+                {{button}}
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+
+
+    <ion-searchbar (ionInput)="getItems($event)" placeholder="Поиск"></ion-searchbar>
+
+    <div *ngIf="topData != [] && isCharactersTop">
+        <ion-card *ngFor="let item of topData ">
+            <ion-card-header style="text-align: center;">
+                <b>#{{item.position}}</b>
+            </ion-card-header>
+            <ion-card-content padding color="main">
+                <b>{{item.name}}</b><br> {{item.class}}: {{item.baseLvl}}/{{item.jobLvl}}
+                <font style="position:relative;top:-8px"><br>Гильдия: <img src="{{item.image}}"> {{item.guild}}
+                    <br>Социальный ранг: {{item.socialRang}}
+                </font>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+    <div *ngIf="topData != [] && isProfessionTop">
+        <ion-item id="forSelect" no-lines>
+            <ion-select [(ngModel)]="choosedProf">
+                <ion-option *ngFor="let prof of professions" value="{{prof.id}}">{{prof.profname}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item-group *ngFor="let prof of topData">
+            <ion-item-divider color="bgcolor2" *ngIf="choosedProf == 0"><b>{{prof.profname}}</b></ion-item-divider>
+            <ion-card *ngFor="let item of prof.professions ">
+                <ion-card-header style="text-align: center;">
+                    <b>#{{item.position}}</b>
+                </ion-card-header>
+                <ion-card-content padding color="main">
+                    <b>{{item.name}}</b>
+                </ion-card-content>
+            </ion-card>
+        </ion-item-group>
+    </div>
+
+    <div *ngIf="topData != [] && isGuildsTop">
+        <ion-card *ngFor="let item of topData ">
+            <ion-card-header style="text-align: center;">
+                <b>#{{item.position}}</b>
+            </ion-card-header>
+            <ion-card-content padding color="main">
+                <font style="position:relative;top:-8px"><br><img src="{{item.image}}"> <b>{{item.name}}</b>
+                    <br> Рейтинг: {{item.rate}}<br> Уровень: {{item.lvl}}<br> Участники: {{item.members}}
+                    <br> Ср. уровень участников: {{item.averageLvl}}
+                    <br> Опыт гильдии: {{item.exp}}<br> GM: <b>{{item.GM}}</b><br> Замки: {{item.castles}}
+                </font>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>

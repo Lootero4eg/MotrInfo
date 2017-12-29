@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { NewsPage } from '../pages/news/news';
 import { DbSearchPage } from '../pages/dbsearch/dbsearch';
+import { TopsPage } from '../pages/tops/tops';
 
 @Component({
   templateUrl: 'app.html'
@@ -15,6 +16,7 @@ export class motrinfo_client {
   showSubmenu:boolean = false;
   rootPage: any = HomePage;
   selectedPage: any = this.rootPage;
+  selectedCustomPageNumber: number = 0;
   //rootPage: any = DbSearchPage;
   menuItemStyle: any = [];
   menuItemSelecteStyle: any = [];
@@ -46,9 +48,14 @@ export class motrinfo_client {
     this.showSubmenu = !this.showSubmenu;
   }
 
-  goToPage(n:number){
-    this.selectedPage = NewsPage;
-    this.nav.setRoot(NewsPage);
+  goToPage(pageType:number,caption: string, adParams: any){
+    this.selectedCustomPageNumber = pageType;
+    this.selectedPage = TopsPage;
+    this.nav.setRoot(TopsPage, {
+      pageType: pageType,
+      pageCaption: caption,
+      additionalParams: adParams
+    });
   }
 
   checkIfSelected(page):boolean{
@@ -58,10 +65,18 @@ export class motrinfo_client {
       return false;
   }
 
+  checkIfSelectedForCustom(cust_page_num):boolean{
+    if(this.selectedCustomPageNumber == cust_page_num)
+      return true;
+    else
+      return false;
+  }
+
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.selectedPage=page.component;
+    this.selectedCustomPageNumber = 0;
+    this.selectedPage = page.component;
     this.nav.setRoot(page.component);
   }
 }

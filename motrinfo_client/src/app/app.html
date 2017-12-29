@@ -19,13 +19,13 @@
         </button>
 
         <div id="sidenav" *ngIf="showSubmenu">
-            <button ion-button clear menuClose (click)="goToPage(0)" class="menuitems" selected>
+            <button ion-button clear menuClose (click)="goToPage(1,'Топ Персонажей')" class="menuitems" [ngStyle]="checkIfSelectedForCustom(1)?menuItemSelecteStyle:menuItemStyle">
                     Топ персонажей                    
             </button>
-            <button ion-button clear menuClose (click)="alert(2)" class="menuitems">
+            <button ion-button clear menuClose (click)="goToPage(2,'Топ Профессий')" class="menuitems" [ngStyle]="checkIfSelectedForCustom(2)?menuItemSelecteStyle:menuItemStyle">
                     Топ профессий
             </button>
-            <button ion-button clear menuClose (click)="alert(2)" class="menuitems">
+            <button ion-button clear menuClose (click)="goToPage(3,'Топ Гильдий')" class="menuitems" [ngStyle]="checkIfSelectedForCustom(3)?menuItemSelecteStyle:menuItemStyle">
                     Топ гильдий
             </button>
         </div>

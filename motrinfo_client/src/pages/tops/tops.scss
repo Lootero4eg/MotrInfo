@@ -1,0 +1,52 @@
+page-tops {
+    .fixed-content {
+        background-color: color($colors, bgcolor2);
+    }
+    .label,
+    .input {
+        color: color($colors, light);
+    }
+    #forSelect {
+        background-color: color($colors, bgcolor2);
+        .select {
+            color: color($colors, light);
+            font-weight: bold;
+            max-width: 80%;
+            width: 100%;
+            margin-left: 10%;
+            background-color: color($colors, bgcolor);
+            border-radius: 5px;
+        }
+    }
+    .searchbar-md .searchbar-input {
+        color: color($colors, main);
+    }
+    .segment {
+        background-color: color($colors, bgcolor);
+    }
+    .segment-button {
+        color: #fff !important;
+        text-transform: none !important;
+        font-size: 1.6rem !important;
+        font-weight: 600 !important;
+        opacity: 1 !important;
+        border: 0 !important;
+        font-family: Arial, Helvetica, sans-serif;
+        &.activated,
+        &.segment-activated {
+            border-top: 0;
+            border-right: 0;
+            border-bottom: 2px solid color($colors, primary) !important;
+            border-left: 0;
+            color: color($colors, primary) !important;
+            background: transparent !important;
+        }
+    }
+    img {
+        display: inline-block;
+        position: relative;
+        top: 5px;
+        vertical-align: center;
+        width: auto;
+    }
+}
