@@ -35,7 +35,7 @@ export class TopsPage {
     /*this.isCharactersTop = true;
     this.topData.push({position: 1, name:"Vasya pupkin", 
     class:"Ranger", baseLvl: 170,jobLvl:60, 
-    image:"http://motr-online.com/images/emblems/36595.gif",
+    guild_image:"http://motr-online.com/images/emblems/36595.gif",
     guild:"Spill-the-blood",socialRang:150});*/
 
     /*this.isGuildsTop = true;

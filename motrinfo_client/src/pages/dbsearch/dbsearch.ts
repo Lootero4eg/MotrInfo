@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { MotrRestServiceProvider } from '../../providers/motr-rest-service/motr-rest-service';
+import $ from 'jquery';
 
 @Component({
   selector: 'page-dbsearch',
@@ -28,7 +29,13 @@ export class DbSearchPage {
 
 constructor(public navCtrl: NavController, public navParams: NavParams, private rest: MotrRestServiceProvider,public loadingCtrl: LoadingController) {    
     //console.log(this.navParams);
-    
+    /*this.rest.test().then(
+      data => {          
+        console.log(data);        
+      }
+      ,
+      error => this.errorMessage = <any>error);*/
+
     this.nested_lvl = this.navParams.get('nestedLevel') != undefined ? this.navParams.get('nestedLevel') : 0;
 
     if(this.navParams.get('searchCaption') != undefined)
@@ -236,4 +243,16 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
       isItemSelected: this.isItemSelected
     });
   }
+
+  /*test(){
+    var request = require('request');
+
+    var URL = 'http://motr-online.com/database/monsters/1115';
+
+    request(URL, function (err, res, body) {
+        if (err) throw err;
+        console.log(body);
+        console.log(res.statusCode);
+    });
+  }*/
 }

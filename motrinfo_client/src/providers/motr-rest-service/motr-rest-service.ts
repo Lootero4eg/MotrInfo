@@ -1,8 +1,9 @@
-import { Http, Response, Headers } from "@angular/http";
-import { HttpModule } from "@angular/http";
+import { Http, Response, Headers,RequestOptions } from "@angular/http";
+//import { HttpModule } from "@angular/http";
 import { Injectable } from "@angular/core";
-import {Observable} from 'rxjs/Observable';
+//import {Observable} from 'rxjs/Observable';
 import "rxjs/add/operator/map";
+//import $ from 'jquery';
 
 @Injectable()
 export class MotrRestServiceProvider {
@@ -76,6 +77,26 @@ export class MotrRestServiceProvider {
         return parsed_data;
       });
   }
+
+  
+  //--Пример парсинга на клиенте
+  /*public test(){       
+    let headers = new Headers();
+    headers.append('Access-Control-Allow-Origin', '*');    
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http
+      .get('http://motr-online.com/database/monsters/1115',options)
+      .toPromise()
+      .then(data => data)
+      .then(parsed_data => {
+        console.log(parsed_data);        
+        let sda: any  = $.parseHTML(parsed_data._body);
+        console.log($(sda).find('table.tableBord'));      
+        return parsed_data;
+      });
+  }*/
 
   /*private handleError (error: Response) {
     console.error(error);

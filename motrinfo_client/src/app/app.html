@@ -8,7 +8,7 @@
 
     <ion-content class="menustyle" padding>
         <div no-lines *ngFor="let p of pages">
-            <button ion-button clear menuClose (click)="openPage(p)" class1="menuitems" [ngClass]="checkIfSelected(p) ? 'ms':'menuitems'">
+            <button ion-button clear menuClose (click)="openPage(p)" [ngClass]="checkIfSelected(p) ? 'menuitemsSelected':'menuitems'">
                 {{p.title}}
             </button>
         </div>
@@ -19,13 +19,13 @@
         </button>
 
         <div id="sidenav" *ngIf="showSubmenu">
-            <button ion-button clear menuClose (click)="goToPage(1,'Топ Персонажей')" class="menuitems" [ngStyle]="checkIfSelectedForCustom(1)?menuItemSelecteStyle:menuItemStyle">
+            <button ion-button clear menuClose (click)="goToPage(1,'Топ Персонажей')" [ngClass]="checkIfSelectedForCustom(1) ? 'menuitemsSelected':'menuitems'">
                     Топ персонажей                    
             </button>
-            <button ion-button clear menuClose (click)="goToPage(2,'Топ Профессий')" class="menuitems" [ngStyle]="checkIfSelectedForCustom(2)?menuItemSelecteStyle:menuItemStyle">
+            <button ion-button clear menuClose (click)="goToPage(2,'Топ Профессий')" [ngClass]="checkIfSelectedForCustom(2) ? 'menuitemsSelected':'menuitems'">
                     Топ профессий
             </button>
-            <button ion-button clear menuClose (click)="goToPage(3,'Топ Гильдий')" class="menuitems" [ngStyle]="checkIfSelectedForCustom(3)?menuItemSelecteStyle:menuItemStyle">
+            <button ion-button clear menuClose (click)="goToPage(3,'Топ Гильдий')" [ngClass]="checkIfSelectedForCustom(3) ? 'menuitemsSelected':'menuitems'">
                     Топ гильдий
             </button>
         </div>
