@@ -8,6 +8,7 @@ import "rxjs/add/operator/map";
 @Injectable()
 export class MotrRestServiceProvider {
   private rest_url: string = "http://motrinfo.000webhostapp.com/RestServer/index.php/";
+  private isDebug: boolean = true;
 
   constructor(public http: Http) {
     //console.log("Hello MotrRestServiceProvider Provider");
@@ -21,7 +22,8 @@ export class MotrRestServiceProvider {
       .toPromise()
       .then(data => data.json())
       .then(parsed_data => {
-        console.log(parsed_data);
+        if(this.isDebug)
+          console.log(parsed_data);
         return parsed_data;
       });
   }
@@ -34,7 +36,8 @@ export class MotrRestServiceProvider {
       .toPromise()
       .then(data => data.json())
       .then(parsed_data => {
-        console.log(parsed_data);
+        if(this.isDebug)
+          console.log(parsed_data);
         return parsed_data;
       });
   }
@@ -47,7 +50,8 @@ export class MotrRestServiceProvider {
       .toPromise()
       .then(data => data.json())
       .then(parsed_data => {
-        console.log(parsed_data);
+        if(this.isDebug)
+          console.log(parsed_data);
         return parsed_data;
       });
   }
@@ -60,7 +64,8 @@ export class MotrRestServiceProvider {
       .toPromise()
       .then(data => data.json())
       .then(parsed_data => {
-        console.log(parsed_data);
+        if(this.isDebug)
+          console.log(parsed_data);
         return parsed_data;
       });
   }
@@ -73,11 +78,25 @@ export class MotrRestServiceProvider {
       .toPromise()
       .then(data => data.json())
       .then(parsed_data => {
-        console.log(parsed_data);
+        if(this.isDebug)
+          console.log(parsed_data);
         return parsed_data;
       });
   }
 
+  public getPersonsTop() {
+    return this.http
+      .get(
+        `${this.rest_url}getPersonsTop`        
+      )
+      .toPromise()
+      .then(data => data.json())
+      .then(parsed_data => {
+        if(this.isDebug)
+          console.log(parsed_data);
+        return parsed_data;
+      });
+  }
   
   //--Пример парсинга на клиенте
   /*public test(){       

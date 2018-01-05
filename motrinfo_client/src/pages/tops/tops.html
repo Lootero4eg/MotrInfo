@@ -5,17 +5,18 @@
       </button>
         <ion-title>{{ pageCaption }}</ion-title>
     </ion-navbar>
+    <div>
+            <ion-segment color="light" *ngIf="isSegmentBarVisible" [ngModel]="segSelected">
+                <ion-segment-button *ngFor="let button of segmentButtons" value="{{button}}" (click)="segmentButtonClicked(button)">
+                    {{button}}
+                </ion-segment-button>
+            </ion-segment>            
+        </div>
 </ion-header>
 
 
 <ion-content>
-    <div>
-        <ion-segment color="light" *ngIf="isSegmentBarVisible" [ngModel]="segSelected">
-            <ion-segment-button *ngFor="let button of segmentButtons" value="{{button}}" (click)="segmentButtonClicked(button)">
-                {{button}}
-            </ion-segment-button>
-        </ion-segment>
-    </div>
+    
 
 
     <ion-searchbar (ionInput)="getItems($event)" placeholder="Поиск"></ion-searchbar>
@@ -27,7 +28,7 @@
             </ion-card-header>
             <ion-card-content padding color="main">
                 <b>{{item.name}}</b><br> {{item.class}}: {{item.baseLvl}}/{{item.jobLvl}}
-                <font style="position:relative;top:-8px"><br>Гильдия: <img src="{{item.image}}"> {{item.guild}}
+                <font style="position:relative;top:-8px"><br>Гильдия: <img src="{{item.guild_image}}"> {{item.guild}}
                     <br>Социальный ранг: {{item.socialRang}}
                 </font>
             </ion-card-content>
@@ -66,5 +67,9 @@
                 </font>
             </ion-card-content>
         </ion-card>
+    </div>
+
+    <div *ngIf="errorMessage">
+        {{errorMessage}}
     </div>
 </ion-content>
