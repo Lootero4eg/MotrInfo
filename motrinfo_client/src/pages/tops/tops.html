@@ -6,7 +6,7 @@
         <ion-title>{{ pageCaption }}</ion-title>
     </ion-navbar>
     <div>
-            <ion-segment color="light" *ngIf="isSegmentBarVisible" [ngModel]="segSelected">
+            <ion-segment color="light" *ngIf="isSegmentBarVisible" [(ngModel)]="segSelected">
                 <ion-segment-button *ngFor="let button of segmentButtons" value="{{button}}" (click)="segmentButtonClicked(button)">
                     {{button}}
                 </ion-segment-button>
@@ -16,10 +16,7 @@
 
 
 <ion-content>
-    
-
-
-    <ion-searchbar (ionInput)="getItems($event)" placeholder="Поиск"></ion-searchbar>
+    <ion-searchbar (ionInput)="getItems($event)" placeholder="Поиск" [(ngModel)]="searchText"></ion-searchbar>
 
     <div *ngIf="topData != [] && isCharactersTop">
         <ion-card *ngFor="let item of topData ">

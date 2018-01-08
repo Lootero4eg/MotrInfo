@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { MotrRestServiceProvider } from '../../providers/motr-rest-service/motr-rest-service';
 
 @IonicPage()
@@ -15,6 +15,7 @@ export class TopsPage {
   segSelected:any = "";  
   topData: any = [];
   private _originalTopData: any = [];
+  private _previousTopData: any = [];
   isCharactersTop: boolean = false;
   isProfessionTop: boolean = false;
   isGuildsTop: boolean = false;
@@ -22,11 +23,16 @@ export class TopsPage {
     content: 'Загрузка данных'
   });
   errorMessage: string;
+  searchText: string = "";
 
   professions: any = []; //--get from rest!!!
   choosedProf: number = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private rest: MotrRestServiceProvider, public loadingCtrl: LoadingController) {
+  constructor(
+      public navCtrl: NavController, public navParams: NavParams, 
+      private rest: MotrRestServiceProvider, 
+      public loadingCtrl: LoadingController, 
+      public toastCtrl: ToastController) {
     console.log(this.navParams);
     this.pageCaption = this.navParams.get('pageCaption');
     this.pageType = this.navParams.get('pageType');
@@ -91,10 +97,13 @@ export class TopsPage {
     //alert("Этот метод еще не готов");
     if(this._originalTopData != null && this._originalTopData.length>0){      
       this.topData = [];
+      this._previousTopData = [];
       for(let i=0;i<+button;i++) {
         this.topData[i] = this._originalTopData[i];
       }
     }
+    if(this.isFilterNeeded())
+      this.getItems(null);
   }
 
   private getPersonsTop() {
@@ -118,7 +127,27 @@ export class TopsPage {
 
   //--search items
   getItems(event:any){
+    if(this.isFilterNeeded()){
+      if(this._previousTopData.length == 0)      
+        this._previousTopData = this.topData;
+      //search
+      let tmpArr: any = [];
+      for(let i=0;i<this._previousTopData.length;i++){
+        if(this._previousTopData[i].name.toLowerCase().indexOf(this.searchText.toLowerCase())>=0)
+        tmpArr.push(this._previousTopData[i]);
+      }
+      this.topData = tmpArr;
+      this.recordsMessage(this.topData.length);
+    }
+    else{
+      if(this._previousTopData != [])
+        this.topData = this._previousTopData;
+    }
 
+  }
+
+  private isFilterNeeded(){
+    return this.searchText == "" ? false : true;
   }
 
   private controlsVisibility(flag: boolean){
@@ -126,5 +155,23 @@ export class TopsPage {
     this.isGuildsTop = flag;
     this.isProfessionTop = flag;
     this.isSegmentBarVisible = flag;
+  }
+
+  private recordsMessage(cnt: number) {
+    let record: string = "записей.";
+    if(cnt == 1)
+      record = "запись.";
+    if(cnt > 1 && cnt < 5)
+      record = "записи.";
+    let msg: string = "Найдено " + cnt + " " + record;
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000, 
+      position: 'middle',
+      cssClass: "roundtoast"
+    });
+    //toast.setPosition("middle");
+    toast.setCssClass("roundtoast");
+    toast.present();
   }
 }
