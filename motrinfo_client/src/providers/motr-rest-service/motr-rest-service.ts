@@ -1,4 +1,4 @@
-import { Http, Response, Headers,RequestOptions } from "@angular/http";
+import { Http, /*Response, Headers,RequestOptions*/ } from "@angular/http";
 //import { HttpModule } from "@angular/http";
 import { Injectable } from "@angular/core";
 //import {Observable} from 'rxjs/Observable';
@@ -88,6 +88,20 @@ export class MotrRestServiceProvider {
     return this.http
       .get(
         `${this.rest_url}getPersonsTop`        
+      )
+      .toPromise()
+      .then(data => data.json())
+      .then(parsed_data => {
+        if(this.isDebug)
+          console.log(parsed_data);
+        return parsed_data;
+      });
+  }
+
+  public getGuildsTop(guilds_count: number) {
+    return this.http
+      .get(
+        `${this.rest_url}getGuildsTop/${guilds_count}`
       )
       .toPromise()
       .then(data => data.json())
