@@ -49,9 +49,15 @@ page-tops {
         vertical-align: center;
         width: auto;
     }
-
-    .roundtoast{
-        border-radius: 25px;
-        //background-color: bisque;
-    }    
+    ion-toast.success .toast-wrapper {
+        background: green;
+    }
+    ion-toast.error .toast-wrapper {
+        background: rgb(209, 71, 71);
+    }
+    .toast-md .toast-message {
+        font-size: 1.5rem;
+        color: #fffaaa !important;
+        padding: 19px 16px 17px;
+    }
 }

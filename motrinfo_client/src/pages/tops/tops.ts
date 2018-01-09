@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { MotrRestServiceProvider } from '../../providers/motr-rest-service/motr-rest-service';
+import $ from 'jquery';
 
 @IonicPage()
 @Component({
@@ -167,11 +168,10 @@ export class TopsPage {
     let toast = this.toastCtrl.create({
       message: msg,
       duration: 3000, 
-      position: 'middle',
-      cssClass: "roundtoast"
+      position: 'middle'      
     });
     //toast.setPosition("middle");
-    toast.setCssClass("roundtoast");
+    //toast.setCssClass("abcd");
     toast.present();
   }
 }
