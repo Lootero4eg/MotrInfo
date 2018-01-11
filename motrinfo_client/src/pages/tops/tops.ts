@@ -7,7 +7,6 @@ import {
   ToastController
 } from "ionic-angular";
 import { MotrRestServiceProvider } from "../../providers/motr-rest-service/motr-rest-service";
-import $ from "jquery";
 
 @IonicPage()
 @Component({
@@ -149,6 +148,7 @@ export class TopsPage {
     this.rest.getGuildsTop(500).then(data => {
       if (data.length > 0) {
         this._originalTopData = data;
+        this.normalizeGuildsCastles(this._originalTopData);
         //this.topData = data;
         this.segSelected = "10";
         this.segmentButtonClicked(this.segSelected);
@@ -202,5 +202,17 @@ export class TopsPage {
       position: "middle"
     });
     toast.present();
+  }
+
+  private normalizeGuildsCastles(data: any){
+    for(let i = 0; i < data.length; i++){
+      if(data[i].castles.trim() != ""){
+        let castles:any = data[i].castles.match(/(font color="#800000">)\S+/g);        
+        for(let j = 0; j < castles.length; j+=2){          
+          data[i].castles = castles[j].replace(/font color="#800000">(.*?)<.*/,"$1")
+            + castles[j+1].replace(/font color="#800000">(.*?)<.*/,"$1")+',';          
+        }        
+      }
+    }
   }
 }
