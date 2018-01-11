@@ -7,6 +7,7 @@ use \Jacwright\RestServer\RestException;
 
 class PersonInfo
 {
+    public $id = null;
     public $position = null;
     public $name = null;
     public $class = null;    
@@ -19,6 +20,7 @@ class PersonInfo
 
 class GuildInfo
 {
+    public $id = null;
     public $position = null;
     public $guild_image = null;
     public $name = null;
@@ -102,6 +104,8 @@ class TopsController
           $row->position = $trarr[$i]->find('td')->eq(0)->text();
           $row->guild_image = $trarr[$i]->find('td')->eq(1)->find('img')->attr('src');
           $row->name = $trarr[$i]->find('td')->eq(2)->text();
+          $gldid = $trarr[$i]->find('td')->eq(2)->html();
+          $row->id = preg_replace('/.*guild\/(.*?)">.*/','$1', $gldid);
           $row->rate = $trarr[$i]->find('td')->eq(3)->text();
           $row->lvl = $trarr[$i]->find('td')->eq(4)->text();
           $row->members= $trarr[$i]->find('td')->eq(5)->text();

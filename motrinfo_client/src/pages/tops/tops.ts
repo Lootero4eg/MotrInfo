@@ -138,7 +138,7 @@ export class TopsPage {
         this._originalTopData = data;
         this.segSelected = "10";
         this.segmentButtonClicked(this.segSelected);
-      } else this.errorMessage = "Not found message here!"; //this.notFoundMessage.replace(/{\$name}/,monster_name);
+      } else this.errorMessage = "Not found message here!";
 
       this.loading.dismiss();
     }, error => (this.errorMessage = <any>error));
@@ -152,7 +152,7 @@ export class TopsPage {
         //this.topData = data;
         this.segSelected = "10";
         this.segmentButtonClicked(this.segSelected);
-      } else this.errorMessage = "Not found message here!"; //this.notFoundMessage.replace(/{\$name}/,monster_name);
+      } else this.errorMessage = "Not found message here!";
 
       this.loading.dismiss();
     }, error => (this.errorMessage = <any>error));
