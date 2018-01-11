@@ -62,7 +62,11 @@
                 <font style="position:relative;top:-8px"><br><img src="{{item.guild_image}}"> <b>{{item.name}}</b>
                     <br> Рейтинг: {{item.rate}}<br> Уровень: {{item.lvl}}<br> Участники: {{item.members}}
                     <br> Ср. уровень участников: {{item.averageLvl}}
-                    <br> Опыт гильдии: {{item.exp}}<br> GM: <b>{{item.GM}}</b><br> Замки: {{item.castles}}
+                    <br> Опыт гильдии: {{item.exp}}<br> GM: <b>{{item.GM}}</b>
+                    <br> Замки: <br>
+                    <font *ngFor="let castle of item.castlesList" style="padding-left:20px">
+                        {{castle}}<br>
+                    </font>
                 </font>
             </ion-card-content>
         </ion-card>
@@ -74,7 +78,9 @@
                 <b>Члены гильдии</b>
             </ion-card-header>
             <ion-card-content padding color="main">
-                1
+                <font *ngFor="let item of topData.membersList">
+                    {{item}}<br>
+                </font>
             </ion-card-content>
         </ion-card>
     </div>

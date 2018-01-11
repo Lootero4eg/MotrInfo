@@ -14,7 +14,7 @@ import { MotrRestServiceProvider } from "../../providers/motr-rest-service/motr-
   templateUrl: "tops.html"
 })
 export class TopsPage {
-  headerImg: string = null;//"<img src='http://motr-online.com/images/emblems/37778.gif'>";
+  headerImg: string = null;
   pageCaption: string = "";
   pageType: any = "";
   additionalParams: any = null;
@@ -23,17 +23,13 @@ export class TopsPage {
   segSelected: any = "";
   topData: any = [];
   private _originalTopData: any = [];
-  private _previousTopData: any = [];
-  /*topsView: TopsView;
-  isCharactersTop: boolean = false;
-  isProfessionTop: boolean = false;
-  isGuildsTop: boolean = false;*/
+  private _previousTopData: any = [];  
   private loading = this.loadingCtrl.create({
     content: "Загрузка данных"
   });
   errorMessage: string;
   searchText: string = "";
-
+  isAnotherButtonPressed: boolean = false;
   professions: any = []; //--get from rest!!!
   choosedProf: number = 0;
 
@@ -44,7 +40,7 @@ export class TopsPage {
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController
   ) {
-    console.log(this.navParams);
+    //console.log(this.navParams);
     this.headerImg = this.navParams.get("headerImg"); 
     this.pageCaption = this.navParams.get("pageCaption");
     this.pageType = this.navParams.get("pageType");
@@ -96,7 +92,8 @@ export class TopsPage {
         break;
 
       case 4:
-        //this.loading.present();
+        this.loading.present();
+        this.getGuildInfo(this.additionalParams);
         break;
     }    
   }
@@ -139,12 +136,19 @@ export class TopsPage {
   private getGuildsTop() {        
     this.rest.getGuildsTop(500).then(data => {
       if (data.length > 0) {
-        this._originalTopData = data;
-        this.normalizeGuildsCastles(this._originalTopData);
+        this._originalTopData = data;        
         //this.topData = data;
         this.segSelected = "10";
         this.segmentButtonClicked(this.segSelected);
       } else this.errorMessage = "Not found message here!";
+
+      this.loading.dismiss();
+    }, error => (this.errorMessage = <any>error));
+  }
+
+  private getGuildInfo(gid: number) {        
+    this.rest.getGuildInfo(gid).then(data => {      
+        this.topData = data;      
 
       this.loading.dismiss();
     }, error => (this.errorMessage = <any>error));
@@ -173,13 +177,14 @@ export class TopsPage {
   }
 
   guildClicked(guild_name: string, guild_id: number){
-    console.log("Guild Id: " + guild_name);    
-    this.navCtrl.push(TopsPage, {
-      pageType: 4,
-      pageCaption: " Гильдия: " + guild_name,
-      headerImg: `<img src='http://motr-online.com/images/emblems/${guild_id}.gif'>`,
-      additionalParams: guild_id
-    });    
+    if(!this.isAnotherButtonPressed){
+      this.navCtrl.push(TopsPage, {
+        pageType: 4,
+        pageCaption: " Гильдия: " + guild_name,
+        headerImg: `<img src='http://motr-online.com/images/emblems/${guild_id}.gif'>`,
+        additionalParams: guild_id
+      });    
+    }
   }
 
   private isFilterNeeded() {
@@ -203,15 +208,12 @@ export class TopsPage {
     toast.present();
   }
 
-  private normalizeGuildsCastles(data: any){
-    for(let i = 0; i < data.length; i++){
-      if(data[i].castles.trim() != ""){
-        let castles:any = data[i].castles.match(/(font color="#800000">)\S+/g);        
-        for(let j = 0; j < castles.length; j+=2){          
-          data[i].castles = castles[j].replace(/font color="#800000">(.*?)<.*/,"$1")
-            + castles[j+1].replace(/font color="#800000">(.*?)<.*/,"$1")+',';          
-        }        
-      }
-    }
-  }
+  /*aal(){
+    this.isAnotherButtonPressed = true;
+    this.navCtrl.push(TopsPage, {
+      pageType: 1,
+      pageCaption: " test: ",
+      headerImg: null    
+    });
+  }*/
 }

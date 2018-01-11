@@ -138,51 +138,50 @@ class TopsController
      */
     public function GetGuildInfo($guild_id)
     {
-      require ('../phpQuery/phpQuery.php');
-	  $motrinfo = file_get_contents('http://motr-online.com/tops/guild/'.$guild_id);
-      $document = phpQuery::newDocument($motrinfo);
-      $res = [];
+        require ('../phpQuery/phpQuery.php');
+        $motrinfo = file_get_contents('http://motr-online.com/tops/guild/'.$guild_id);
+        $document = phpQuery::newDocument($motrinfo);      
 
-      $hentry = $document->find('table.tableBord');
-      
-      $pqm=pq($hentry)->eq(0);
-      $trarr=array();
+        $hentry = $document->find('table.tableBord');
+        
+        $pqm=pq($hentry)->eq(0);
+        $trarr=array();
 
-      foreach ($pqm->find('tr') as $el1)
-      {
-         $pq1 = pq($el1);
-         $trarr[] = $pq1;
-      }
-      
-      //for($i=0;$i<count($trarr);$i++){          
-          $row = new GuildInfo();          
-          $row->GM = $trarr[1]->find('td')->eq(1)->text();
-          $row->lvl = $trarr[2]->find('td')->eq(1)->text();
-          $row->members= $trarr[3]->find('td')->eq(1)->text();
-          $row->exp = $trarr[4]->find('td')->eq(1)->text();
-          $membersStr = $trarr[5]->find('td')->eq(1)->html();
-          $membersArr = explode('<br>',$membersStr);
-          $row->membersList = Array();
-          foreach($membersArr as $item){
-            if($item ==  "\n")
-                continue;
-            $item = preg_replace('/.*">(.*)<.*/','$1',$item);
-            array_push($row->membersList,$item);
-          }
-          //$row->membersList = $trarr[5]->find('td')->eq(1)->html();
-          $castlesStr = $trarr[6]->find('td')->eq(1)->html();
-          $castlesArr = explode('<br>',$castlesStr);
-          $row->castlesList = Array();
-          foreach($castlesArr as $item){
-            if($item ==  "\n")
-                continue;
-            $item = preg_replace('/.*">(.*)<\/font><\/a>/','$1',$item);
-            array_push($row->castlesList,$item);
-          }
-          //$row->castles = $trarr[6]->find('td')->eq(1)->html();
-          array_push($res,$row);
-      //}
+        foreach ($pqm->find('tr') as $el1)
+        {
+            $pq1 = pq($el1);
+            $trarr[] = $pq1;
+        }
+            
+        $row = new GuildInfo();          
+        $row->GM = $trarr[1]->find('td')->eq(1)->text();
+        $row->lvl = $trarr[2]->find('td')->eq(1)->text();
+        $row->members= $trarr[3]->find('td')->eq(1)->text();
+        $row->exp = $trarr[4]->find('td')->eq(1)->text();
+        $membersStr = $trarr[5]->find('td')->eq(1)->html();
+        $membersArr = explode('<br>',$membersStr);
+        $row->membersList = Array();
+        foreach($membersArr as $item){
+        $item = str_replace("\n","",$item);
+        if($item ==  "\n")
+            continue;
+        $item = preg_replace('/.*">(.*)<.*/','$1',$item);
+        array_push($row->membersList,$item);
+        }
+        //$row->membersList = $trarr[5]->find('td')->eq(1)->html();
+        $castlesStr = $trarr[6]->find('td')->eq(1)->html();
+        $castlesArr = explode('<br>',$castlesStr);
+        $row->castlesList = Array();
+        foreach($castlesArr as $item){
+        $item = str_replace("\n","",$item);
+        if($item ==  "\n")
+            continue;
+        $item = preg_replace('/.*">(.*)<\/font><\/a>/','$1',$item);
+        array_push($row->castlesList,$item);
+        }
+        
+        //array_push($res,$row);
 
-	  return $res;
+	    return $row;
     }
 }

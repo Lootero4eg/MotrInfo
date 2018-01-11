@@ -111,6 +111,20 @@ export class MotrRestServiceProvider {
         return parsed_data;
       });
   }
+
+  public getGuildInfo(guild_id: number) {
+    return this.http
+      .get(
+        `${this.rest_url}getGuildInfo/${guild_id}`
+      )
+      .toPromise()
+      .then(data => data.json())
+      .then(parsed_data => {
+        if(this.isDebug)
+          console.log(parsed_data);
+        return parsed_data;
+      });
+  }
   
   //--Пример парсинга на клиенте
   /*public test(){       
