@@ -14,17 +14,20 @@ import { MotrRestServiceProvider } from "../../providers/motr-rest-service/motr-
   templateUrl: "tops.html"
 })
 export class TopsPage {
+  headerImg: string = null;//"<img src='http://motr-online.com/images/emblems/37778.gif'>";
   pageCaption: string = "";
   pageType: any = "";
+  additionalParams: any = null;
   segmentButtons: Array<string> = [];
   isSegmentBarVisible: boolean = true;
   segSelected: any = "";
   topData: any = [];
   private _originalTopData: any = [];
   private _previousTopData: any = [];
+  /*topsView: TopsView;
   isCharactersTop: boolean = false;
   isProfessionTop: boolean = false;
-  isGuildsTop: boolean = false;
+  isGuildsTop: boolean = false;*/
   private loading = this.loadingCtrl.create({
     content: "Загрузка данных"
   });
@@ -42,14 +45,15 @@ export class TopsPage {
     public toastCtrl: ToastController
   ) {
     console.log(this.navParams);
+    this.headerImg = this.navParams.get("headerImg"); 
     this.pageCaption = this.navParams.get("pageCaption");
     this.pageType = this.navParams.get("pageType");
+    this.additionalParams = this.navParams.get("additionalParams");    
 
     this.controlsVisibility(false);
     switch (this.pageType) {
-      case 1:
-        this.loading.present();
-        this.isCharactersTop = true;
+      case 1://--persons list
+        this.loading.present();        
         this.segmentButtons.push("10");
         this.segmentButtons.push("25");
         this.segmentButtons.push("50");
@@ -58,9 +62,31 @@ export class TopsPage {
         this.getPersonsTop();
         break;
 
-      case 3:
-        this.loading.present();
-        this.isGuildsTop = true;
+      case 2://--professions list
+        this.professions.push(
+          {id:0,profname:"Все профессии"},
+          {id:1,profname:"1 профессии"},
+          {id:2,profname:"1 перерожденные профессии"},
+          {id:3,profname:"2 профессии"},
+          {id:4,profname:"2 перерожденные профессии"},
+          {id:5,profname:"3 профессии"},
+          {id:6,profname:"Разные профессии"},
+          {id:7,profname:"Гомункулы"},
+          {id:8,profname:"Беби профессии"}
+        );
+        this.topData.push(
+          {proftype:1,profname:"3 профессия", professions: [
+            { position:1,id:1,name:"Arch Bishop" },
+            { position:2,id:2,name:"Ranger" }]}
+          ,
+          {proftype:2,profname:"2 перерожденные", professions: [
+            { position:1,id:11,name:"Sniper" },
+            { position:2,id:21,name:"Champion" }]}
+          );
+        break;
+
+      case 3://--guilds list
+        this.loading.present();        
         this.segmentButtons.push("10");
         this.segmentButtons.push("50");
         this.segmentButtons.push("100");
@@ -68,45 +94,11 @@ export class TopsPage {
         this.isSegmentBarVisible = true;
         this.getGuildsTop();
         break;
-    }
 
-    /*this.isCharactersTop = true;
-    this.topData.push({position: 1, name:"Vasya pupkin", 
-    class:"Ranger", baseLvl: 170,jobLvl:60, 
-    guild_image:"http://motr-online.com/images/emblems/36595.gif",
-    guild:"Spill-the-blood",socialRang:150});*/
-
-    /*this.isGuildsTop = true;
-    this.topData.push({position: 1, name:"MoonRiders", 
-    rate:1129, lvl: 50,
-    image:"http://motr-online.com/images/emblems/1086.gif",
-    members:"36/36",averageLvl: 171, exp:4294967295, GM:"zALz",
-    castles:"Mersetzdeitz (gefg_cas05),Viblainn (schg_cas03),Mardol (arug_cas01)"});*/
-
-    /*this.isSegmentBarVisible = false;   
-    
-    this.professions.push(
-      {id:0,profname:"Все профессии"},
-      {id:1,profname:"1 профессии"},
-      {id:2,profname:"1 перерожденные профессии"},
-      {id:3,profname:"2 профессии"},
-      {id:4,profname:"2 перерожденные профессии"},
-      {id:5,profname:"3 профессии"},
-      {id:6,profname:"Разные профессии"},
-      {id:7,profname:"Гомункулы"},
-      {id:8,profname:"Беби профессии"}
-    );
-
-    this.isProfessionTop = true;
-    this.topData.push(
-      {proftype:1,profname:"3 профессия", professions: [
-        { position:1,id:1,name:"Arch Bishop" },
-        { position:2,id:2,name:"Ranger" }]}
-      ,
-      {proftype:2,profname:"2 перерожденные", professions: [
-        { position:1,id:11,name:"Sniper" },
-        { position:2,id:21,name:"Champion" }]}
-      );*/
+      case 4:
+        //this.loading.present();
+        break;
+    }    
   }
 
   ngOnInit() {}
@@ -180,15 +172,22 @@ export class TopsPage {
     }
   }
 
+  guildClicked(guild_name: string, guild_id: number){
+    console.log("Guild Id: " + guild_name);    
+    this.navCtrl.push(TopsPage, {
+      pageType: 4,
+      pageCaption: " Гильдия: " + guild_name,
+      headerImg: `<img src='http://motr-online.com/images/emblems/${guild_id}.gif'>`,
+      additionalParams: guild_id
+    });    
+  }
+
   private isFilterNeeded() {
     return this.searchText == "" ? false : true;
   }
 
-  private controlsVisibility(flag: boolean) {
-    this.isCharactersTop = flag;
-    this.isGuildsTop = flag;
-    this.isProfessionTop = flag;
-    this.isSegmentBarVisible = flag;
+  private controlsVisibility(flag: boolean) {    
+    this.isSegmentBarVisible = flag;    
   }
 
   private recordsMessage(cnt: number) {

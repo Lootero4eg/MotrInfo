@@ -3,7 +3,9 @@
         <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
       </button>
-        <ion-title>{{ pageCaption }}</ion-title>
+        <ion-title>
+            <font [innerHTML]="headerImg"> </font>{{ pageCaption }}
+        </ion-title>
     </ion-navbar>
     <div>
         <ion-segment color="light" *ngIf="isSegmentBarVisible" [(ngModel)]="segSelected">
@@ -18,7 +20,7 @@
 <ion-content>
     <ion-searchbar (ionInput)="getItems($event)" placeholder="Поиск" [(ngModel)]="searchText" id="sbar"></ion-searchbar>
 
-    <div *ngIf="topData != [] && isCharactersTop">
+    <div *ngIf="topData != [] && pageType == 1">
         <ion-card *ngFor="let item of topData ">
             <ion-card-header style="text-align: center;">
                 <b>#{{item.position}}</b>
@@ -32,7 +34,7 @@
         </ion-card>
     </div>
 
-    <div *ngIf="topData != [] && isProfessionTop">
+    <div *ngIf="topData != [] && pageType == 2">
         <ion-item id="forSelect" no-lines>
             <ion-select [(ngModel)]="choosedProf">
                 <ion-option *ngFor="let prof of professions" value="{{prof.id}}">{{prof.profname}}</ion-option>
@@ -51,8 +53,8 @@
         </ion-item-group>
     </div>
 
-    <div *ngIf="topData != [] && isGuildsTop">
-        <ion-card *ngFor="let item of topData ">
+    <div *ngIf="topData != [] && pageType == 3">
+        <ion-card *ngFor="let item of topData" (click)="guildClicked(item.name, item.id)">
             <ion-card-header style="text-align: center;">
                 <b>#{{item.position}}</b>
             </ion-card-header>
@@ -62,6 +64,17 @@
                     <br> Ср. уровень участников: {{item.averageLvl}}
                     <br> Опыт гильдии: {{item.exp}}<br> GM: <b>{{item.GM}}</b><br> Замки: {{item.castles}}
                 </font>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+    <div *ngIf="topData != [] && pageType == 4">
+        <ion-card>
+            <ion-card-header style="text-align: center;">
+                <b>Члены гильдии</b>
+            </ion-card-header>
+            <ion-card-content padding color="main">
+                1
             </ion-card-content>
         </ion-card>
     </div>
